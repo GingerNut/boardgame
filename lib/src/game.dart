@@ -10,13 +10,14 @@ import 'package:boardgame/src/player.dart';
 import 'package:boardgame/src/position.dart';
 import 'package:boardgame/src/settings.dart';
 
-class Game{
+abstract class Game{
 
   final Interface ui;
   int numberOfPlayers;
   Position position;
   List<Player> players;
   List<Move> history = new List();
+  bool get gameOver => position.winner != null;
 
   Game(this.ui){
     ui.game = this;
@@ -26,7 +27,7 @@ class Game{
 
   newGame(){
 
-  position = Position (this, null, null);
+  position = Position (this, null);
 
   position.initialise();
 
@@ -66,11 +67,27 @@ class Game{
 
 }
 
-  makeMove(){
+  makeMove(Move move){
+    ui.inputOpen = false;
+    Position newPosition = getPosition(this, position);
+    newPosition.initialise();
+    newPosition.makeMove(move);
+    newPosition.analyse();
+
+    position = newPosition;
+
+    if(gameOver) {
+      history.add(move);
+
+    } else {
+      position.player.yourTurn(position);
+    }
+
+    ui.redraw();
+
+  }
 
 
-}
-
-
+Position getPosition(Game game, Position parent);
 
 }

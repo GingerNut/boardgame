@@ -9,13 +9,17 @@ class Position{
 
   final Game game;
   final Position parent;
-  final Move move;
+  Move move;
   List<PlayerStatus> playerStatus;
   Player player;
 
-Player winner;
+  Player winner;
 
-  Position(this.game, this.parent, this.move);
+  Position(this.game, this.parent);
+
+  makeMove(Move move){
+    this.move = move;
+  }
 
   initialise(){}
 

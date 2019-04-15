@@ -7,9 +7,15 @@ import 'package:boardgame/src/player.dart';
 abstract class Interface{
 
   Game game;
+  bool inputOpen = false;
+  Player interfacePlayer;
 
-
-  go(Player player){}
+  go(Player player){
+    interfacePlayer = player;
+    inputOpen = true;
+  }
 
   setUpNewGame();
+
+  redraw();
 }
