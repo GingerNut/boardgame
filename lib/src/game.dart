@@ -2,7 +2,8 @@
 
 import 'package:boardgame/src/computerPlayer.dart';
 import 'package:boardgame/src/humanPlayer.dart';
-import 'package:boardgame/src/input.dart';
+import 'package:boardgame/src/interface.dart';
+
 import 'package:boardgame/src/internetPlayer.dart';
 import 'package:boardgame/src/move.dart';
 import 'package:boardgame/src/player.dart';
@@ -11,14 +12,14 @@ import 'package:boardgame/src/settings.dart';
 
 class Game{
 
-  final Input input;
+  final Interface ui;
   int numberOfPlayers;
   Position position;
   List<Player> players;
   List<Move> history = new List();
 
-  Game(this.input){
-    input.game = this;
+  Game(this.ui){
+    ui.game = this;
   }
 
   setup()async{}
@@ -61,7 +62,7 @@ class Game{
 
   history.clear();
 
-  input.setUpNewGame();
+  ui.setUpNewGame();
 
 }
 

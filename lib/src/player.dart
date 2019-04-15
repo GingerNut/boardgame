@@ -19,9 +19,16 @@ class Player{
   Player(this.game, this.number);
 
 
-  yourTurn(Position position){}
+  yourTurn(Position position){
 
-  outOfTime(){}
+  }
+
+  outOfTime(){
+    Position position = game.position;
+
+    position.playerStatus[number] = PlayerStatus.out;
+    position.checkWin();
+  }
 
 }
 

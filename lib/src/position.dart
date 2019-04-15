@@ -21,4 +21,6 @@ Player winner;
 
   analyse(){}
 
+  checkWin(){}
+
 }
