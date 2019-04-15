@@ -6,6 +6,9 @@ import 'package:boardgame/src/game_timer.dart';
 import 'package:boardgame/src/position.dart';
 
 class Player{
+  static const int human = 0;
+  static const int computer = 1;
+  static const int internet = 2;
 
   final Game game;
   final int number;
@@ -18,11 +21,10 @@ class Player{
 
   yourTurn(Position position){}
 
-  outOfTime(){
-
-  }
+  outOfTime(){}
 
 }
+
 
 enum PlayerStatus{
   winner,
