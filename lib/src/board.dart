@@ -3,7 +3,7 @@
 
 class Board{
 
-
+  makeBoard(){}
 
 
 }

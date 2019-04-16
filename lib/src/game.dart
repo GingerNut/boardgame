@@ -69,7 +69,7 @@ abstract class Game{
 
   makeMove(Move move){
     ui.inputOpen = false;
-    Position newPosition = getPosition(this, position);
+    Position newPosition = Position(this, position);
     newPosition.initialise();
     newPosition.makeMove(move);
     newPosition.analyse();
@@ -86,8 +86,5 @@ abstract class Game{
     ui.redraw();
 
   }
-
-
-Position getPosition(Game game, Position parent);
 
 }

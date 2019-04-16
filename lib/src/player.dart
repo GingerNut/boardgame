@@ -3,6 +3,7 @@
 
 import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/game_timer.dart';
+import 'package:boardgame/src/palette.dart';
 import 'package:boardgame/src/position.dart';
 
 class Player{
@@ -15,8 +16,15 @@ class Player{
   int color;
   String reasonOut;
   GameTimer timer;
+  Player nextPlayer;
 
-  Player(this.game, this.number);
+  double get timeLeft => timer.timeLeft;
+
+  Player(this.game, this.number){
+
+    color = Palette.defaultPlayerColours[number];
+    timer = GameTimer(this, game.ui.settings.gameTime, moveTime: game.ui.settings.moveTime);
+  }
 
 
   yourTurn(Position position){
