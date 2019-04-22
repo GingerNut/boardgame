@@ -25,4 +25,26 @@ class Palette{
     COLOR_PURPLE
   ];
 
+  static int colorCombo(int background){
+
+    switch(background){
+      case Palette.COLOR_NONE:
+      case Palette.COLOR_WHITE:
+        return Palette.COLOR_LETTER_DARK;
+
+      case Palette.COLOR_MOVE_GOOD:
+      case Palette.COLOR_GREY:
+      case Palette.COLOR_BLACK:
+      case Palette.COLOR_SELECTED:
+      case Palette.COLOR_BLUE:
+      case Palette.COLOR_RED:
+      case Palette.COLOR_WORD_DISSOLVED:
+      case Palette.COLOR_PURPLE:
+      case Palette.COLOR_GOLD:
+        return Palette.COLOR_LETTER_LIGHT;
+    }
+
+    return Palette.COLOR_LETTER_DARK;
+  }
+
 }

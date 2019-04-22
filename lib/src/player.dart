@@ -19,15 +19,20 @@ class Player{
   Player nextPlayer;
 
   double get timeLeft => timer.timeLeft;
+  double score(Position position) => position.score[number];
 
   Player(this.game, this.number){
 
     color = Palette.defaultPlayerColours[number];
-    timer = GameTimer(this, game.ui.settings.gameTime, moveTime: game.ui.settings.moveTime);
+    timer = GameTimer(this, game.settings.gameTime, moveTime: game.settings.moveTime);
   }
 
 
   yourTurn(Position position){
+
+  }
+
+  wait(){
 
   }
 

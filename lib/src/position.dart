@@ -2,7 +2,7 @@
 
 
 import 'package:boardgame/src/game.dart';
-import 'package:boardgame/src/move.dart';
+import 'package:boardgame/src/move/move.dart';
 import 'package:boardgame/src/player.dart';
 
 class Position{
@@ -11,6 +11,7 @@ class Position{
   final Position parent;
   Move move;
   List<PlayerStatus> playerStatus;
+  List<double> score;
   Player player;
 
   Player winner;

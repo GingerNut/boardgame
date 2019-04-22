@@ -13,7 +13,7 @@ class HumanPlayer extends Player with Human{
 mixin Human on Player{
 
 yourTurn(Position position) {
-  game.ui.go(this);
+
 }
 
 
