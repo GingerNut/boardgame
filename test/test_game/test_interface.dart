@@ -13,7 +13,6 @@ class TestInterface extends Interface{
 
   getServer() => TestServer();
 
-
   message(String m){
     print(m);
 

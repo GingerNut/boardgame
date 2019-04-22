@@ -51,9 +51,11 @@ abstract class Interface{
 
   setUpNewGame(){
 
-    Game game = createNewGame(settings);
-
     startServer(game);
+
+    //TODO ask server to start a new game with settings
+    //TODO turn settings into and back from a string
+    //TODO start the game and initialise computers
   }
 
   redraw(){
