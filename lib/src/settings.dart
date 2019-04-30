@@ -5,8 +5,8 @@ import 'package:boardgame/src/player.dart';
 
 class Settings{
 
-  static int numberOfPlayers = 4;
-  static int playerType = Player.computer;
+  int numberOfPlayers = 4;
+  int playerType = Player.human;
   bool playerHelp = false;
   bool randomStart = true;
 

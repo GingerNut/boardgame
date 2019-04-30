@@ -5,7 +5,7 @@ import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/move/move.dart';
 import 'package:boardgame/src/player.dart';
 
-class Position{
+abstract class Position{
 
   final Game game;
   final Position parent;
@@ -20,12 +20,19 @@ class Position{
 
   makeMove(Move move){
     this.move = move;
+    analyse();
   }
 
-  initialise(){}
+  initialise(){
+    playerStatus = new List(game.settings.numberOfPlayers);
+    score = new List(game.settings.numberOfPlayers);
+    setup();
+  }
 
-  analyse(){}
+  setup();
 
-  checkWin(){}
+  analyse();
+
+  checkWin();
 
 }

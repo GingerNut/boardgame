@@ -10,10 +10,12 @@ import 'package:boardgame/src/position.dart';
 import 'package:boardgame/src/settings.dart';
 
 abstract class Game {
-  Settings settings;
+  final Settings settings;
   Board board;
 
-  int get numberOfPlayers => players.length;
+  Game(this.settings);
+
+  int get numberOfPlayers => settings.numberOfPlayers;
   Position position;
   List<Player> players;
   List<Move> history = new List();
@@ -34,8 +36,8 @@ abstract class Game {
 
   setup() async {}
 
-  newGame() {
-    position = Position(this, null);
+  initialise() {
+    position = getPosition(null);
 
     position.initialise();
 
@@ -45,7 +47,7 @@ abstract class Game {
       for (int i = 0; i < numberOfPlayers; i ++) {
         Player player;
 
-        switch (Settings.playerType) {
+        switch (settings.playerType) {
           case Player.human:
             player = new HumanPlayer(this, i);
             break;
@@ -59,10 +61,12 @@ abstract class Game {
             break;
         }
 
-        players.add(player);
+        players[i] = player;
         position.playerStatus[i] = PlayerStatus.waiting;
       }
     }
+
+    position.analyse();
 
     position.player = players[0];
 
@@ -71,11 +75,14 @@ abstract class Game {
     history.clear();
   }
 
+  getPosition(Position parent);
+
   makeMove(Move move) {
-    Position newPosition = Position(this, position);
+    Position newPosition = getPosition(position);
     newPosition.initialise();
     newPosition.makeMove(move);
     newPosition.analyse();
+    newPosition.checkWin();
 
     position = newPosition;
 
@@ -89,7 +96,9 @@ abstract class Game {
 }
 
 enum Status{
-  waiting,
+  waitingForPlayers,
+  waitingForAllReady,
   started,
+  paused,
   finished
 }

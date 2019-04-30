@@ -5,16 +5,21 @@ import 'test_game/test_interface.dart';
 
 void main() {
 
-  TestInterface ui = TestInterface();
+
 
   group('Set up a new game', () {
+
+    TestInterface ui = TestInterface();
 
     setUp(() {
 
     });
 
-    test('First Test', () {
+    test('Start a game against three computers ', () {
       ui.setUpNewGame();
+
+
+
     });
   });
 
