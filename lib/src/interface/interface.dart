@@ -29,7 +29,7 @@ abstract class Interface{
 
     server.listeningPort(this, messagesOut.stream);
 
-    messagesOut.add('hello from interface');
+    messagesOut.add('N\nrtt\nui');
 
   }
 
@@ -53,13 +53,6 @@ abstract class Interface{
 
     startServer(game);
 
-    //TODO move the game into the server
-
-    game = createNewGame(settings);
-
-    game.initialise();
-
-    //TODO ask server to start a new game with settings
     //TODO turn settings into and back from a string
     //TODO start the game and initialise computers
   }

@@ -1,23 +1,23 @@
 
 import 'package:boardgame/src/server/game_server.dart';
+import 'package:boardgame/src/settings.dart';
 
 import 'test_game.dart';
 
 
 class TestServer extends GameServer{
 
-  TestGame game;
 
 
-  message(String m){
 
-    print(m);
+  newGame(Settings settings){
 
-    messagesOut.add('hello from server');
+    game = TestGame(settings);
 
+    game.initialise();
+
+    messagesOut.add('R');
   }
-
-
 
 
 
