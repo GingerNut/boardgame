@@ -1,18 +1,20 @@
 
 
 import 'dart:async';
-import 'package:boardgame/src/computer/computer.dart';
 import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/position.dart';
 import 'package:boardgame/src/server/game_server.dart';
 import 'package:boardgame/src/settings.dart';
 
 abstract class Interface{
   GameServer server;
-  Computer computer;
+  GameState gameState = GameState.none;
+
   Settings settings = Settings();
-  Game game;
+
   bool inputOpen = false;
+  Position position;
   Player interfacePlayer;
 
   final StreamController<GameMessage> events = StreamController.broadcast();
@@ -21,7 +23,7 @@ abstract class Interface{
   Stream<String> messagesIn;
   StreamController<String> messagesOut;
 
-  startServer(Game game) {
+  startServer() {
 
     if(server == null) server = getServer();
 
@@ -42,24 +44,27 @@ abstract class Interface{
 
     switch(m[0]){
 
-      case 'R': print('game ready');
+      case 'W':
+        gameState = GameState.waitingForPlayers;
+        events.add(GameMessage(Event.reDraw));
+        break;
 
     }
 
   }
+
 
   go(Player player){
     interfacePlayer = player;
     inputOpen = true;
   }
 
-  setUpNewGame(){
+  setUpNewGame() async{
 
-    startServer(game);
+    startServer();
 
     messagesOut.add('N' + settings.string);
 
-    //TODO turn settings into and back from a string
     //TODO start the game and initialise computers
   }
 

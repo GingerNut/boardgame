@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:boardgame/src/computer/computer.dart';
 import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/interface/interface.dart';
 import 'package:boardgame/src/settings.dart';
@@ -10,6 +11,7 @@ import 'package:boardgame/src/settings.dart';
 abstract class GameServer{
 
   Game game;
+  Computer computer;
 
   Stream<String> messagesIn;
   StreamController<String> messagesOut;
@@ -36,13 +38,13 @@ abstract class GameServer{
   }
 
 
-  newGame(Settings settings){
+  newGame(Settings settings) async{
 
     game = getGame(settings);
 
-    game.initialise();
+    await game.initialise();
 
-    messagesOut.add('R');
+    messagesOut.add('W');
   }
 
 

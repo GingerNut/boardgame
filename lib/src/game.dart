@@ -95,7 +95,8 @@ abstract class Game {
 
 }
 
-enum Status{
+enum GameState{
+  none,
   waitingForPlayers,
   waitingForAllReady,
   started,
