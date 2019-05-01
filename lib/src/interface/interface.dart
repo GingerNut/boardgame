@@ -39,19 +39,43 @@ abstract class Interface{
     messagesIn = stream;
     stream.listen((m) => message(m));
   }
+  
+  checkGameStatus() => messagesOut.add(GameServer.checkGameStatus);
 
   message(String m){
 
     switch(m[0]){
 
-      case 'W':
+      case GameServer.waitingForPlayers:
         gameState = GameState.waitingForPlayers;
         events.add(GameMessage(Event.reDraw));
         break;
 
+      case GameServer.finished:
+        gameState = GameState.finished;
+        break;
+
+      case GameServer.none:
+        gameState = GameState.none;
+        break;
+
+      case GameServer.paused:
+        gameState = GameState.paused;
+        break;
+
+      case GameServer.started:
+        gameState = GameState.started;
+        break;
+
+      case GameServer.waitingForAllReady:
+        gameState = GameState.waitingForAllReady;
+        break;
+
+
     }
 
   }
+
 
 
   go(Player player){
@@ -63,7 +87,7 @@ abstract class Interface{
 
     startServer();
 
-    messagesOut.add('N' + settings.string);
+    messagesOut.add(GameServer.startNewGame + settings.string);
 
     //TODO start the game and initialise computers
   }

@@ -7,7 +7,7 @@ import 'test_game.dart';
 
 class TestServer extends GameServer{
 
-  getGame(Settings settings) => TestGame(settings);
+  getGame(Settings settings) => TestGame(settings, this);
 
 
 

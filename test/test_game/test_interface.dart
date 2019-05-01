@@ -9,7 +9,7 @@ import 'test_server.dart';
 
 class TestInterface extends Interface{
 
-  createNewGame(Settings settings) => TestGame(settings);
+  createNewGame(Settings settings) => TestGame(settings, server);
 
   getServer() => TestServer();
 

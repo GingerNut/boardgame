@@ -32,6 +32,25 @@ void main() {
 
 
     });
+
+    test('setting game state ', () async{
+      await ui.setUpNewGame();
+
+      ui.server.game.state = GameState.waitingForPlayers;
+      ui.server.game.state = GameState.none;
+      ui.server.game.state = GameState.waitingForAllReady;
+      ui.server.game.state = GameState.started;
+      ui.server.game.state = GameState.paused;
+      ui.server.game.state = GameState.finished;
+
+
+
+
+    });
+
+
+
+
   });
 
   group('Settings tests ', () {

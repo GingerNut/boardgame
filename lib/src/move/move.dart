@@ -10,6 +10,13 @@ abstract class Move{
   String error;
   Player player;
 
+  String get string;
+
+  Move.fromString(String string){
+
+
+  }
+
   String setup(Position position) =>'OK';
 
   String move(Position position) => 'OK';

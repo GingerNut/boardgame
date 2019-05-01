@@ -7,13 +7,24 @@ import 'package:boardgame/src/internet/internet_player.dart';
 import 'package:boardgame/src/move/move.dart';
 import 'package:boardgame/src/player.dart';
 import 'package:boardgame/src/position.dart';
+import 'package:boardgame/src/server/game_server.dart';
 import 'package:boardgame/src/settings.dart';
 
 abstract class Game {
   final Settings settings;
+  final GameServer server;
+  GameState _state = GameState.none;
+
+  set state(GameState newState){
+    _state = newState;
+    server.updateState();
+  }
+
+  GameState get state =>_state;
+
   Board board;
 
-  Game(this.settings);
+  Game(this.settings, this.server);
 
   int get numberOfPlayers => settings.numberOfPlayers;
   Position position;

@@ -2,6 +2,7 @@
 
 import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/position.dart';
+import 'package:boardgame/src/server/game_server.dart';
 import 'package:boardgame/src/settings.dart';
 
 import 'test_position.dart';
@@ -11,7 +12,7 @@ import 'test_position.dart';
 
 class TestGame extends Game{
 
-  TestGame(Settings settings) : super(settings);
+  TestGame(Settings settings, GameServer server) : super(settings, server);
 
   String get string => null;
 
