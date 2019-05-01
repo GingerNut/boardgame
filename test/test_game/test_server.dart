@@ -7,17 +7,10 @@ import 'test_game.dart';
 
 class TestServer extends GameServer{
 
+  getGame(Settings settings) => TestGame(settings);
 
 
 
-  newGame(Settings settings){
-
-    game = TestGame(settings);
-
-    game.initialise();
-
-    messagesOut.add('R');
-  }
 
 
 

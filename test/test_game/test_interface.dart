@@ -14,20 +14,7 @@ class TestInterface extends Interface{
   getServer() => TestServer();
 
 
-    message(String m){
 
-      List<String> message = m.split("\n");
-
-      switch(message[0]){
-
-        case 'R': print('game ready');
-
-
-      }
-
-
-
-  }
 
 
 }

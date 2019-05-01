@@ -21,20 +21,29 @@ abstract class GameServer{
     interface.receivePort(messagesOut.stream);
   }
 
+  getGame(Settings settings);
+
   message(String m){
 
-    List<String> message = m.split("\n");
+    switch(m[0]){
 
-    switch(message[0]){
-
-      case 'N': newGame(Settings());
+      case 'N': newGame(Settings.fromString(m.substring(1)));
+      break;
 
 
     }
 
   }
 
-  newGame(Settings settings);
+
+  newGame(Settings settings){
+
+    game = getGame(settings);
+
+    game.initialise();
+
+    messagesOut.add('R');
+  }
 
 
 

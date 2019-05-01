@@ -1,4 +1,5 @@
 
+import 'package:boardgame/src/settings.dart';
 import 'package:test/test.dart';
 
 import 'test_game/test_interface.dart';
@@ -22,6 +23,22 @@ void main() {
 
     });
   });
+
+  group('Settings tests ', () {
+
+    test('Stingify ', (){
+      Settings settings = Settings();
+
+      Settings stringed = Settings.fromString(settings.string);
+
+      expect(settings.numberOfPlayers, stringed.numberOfPlayers);
+
+
+    });
+
+
+  });
+
 
 
 

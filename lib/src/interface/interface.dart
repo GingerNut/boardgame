@@ -29,8 +29,6 @@ abstract class Interface{
 
     server.listeningPort(this, messagesOut.stream);
 
-    messagesOut.add('N\nrtt\nui');
-
   }
 
   getServer();
@@ -40,18 +38,26 @@ abstract class Interface{
     stream.listen((m) => message(m));
   }
 
-  message(String m);
+  message(String m){
+
+    switch(m[0]){
+
+      case 'R': print('game ready');
+
+    }
+
+  }
 
   go(Player player){
     interfacePlayer = player;
     inputOpen = true;
   }
 
-  Game createNewGame(Settings settings);
-
   setUpNewGame(){
 
     startServer(game);
+
+    messagesOut.add('N' + settings.string);
 
     //TODO turn settings into and back from a string
     //TODO start the game and initialise computers
