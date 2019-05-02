@@ -11,8 +11,8 @@ abstract class Player{
   static const int computer = 1;
   static const int internet = 2;
 
-  final Game game;
-  final int number;
+  Game game;
+  int number;
   int color;
   String reasonOut;
   GameTimer timer;
@@ -22,8 +22,8 @@ abstract class Player{
   double get timeLeft => timer.timeLeft;
   double score(Position position) => position.score[number];
 
-  Player(this.game, this.number){
 
+  initialise(){
     color = Palette.defaultPlayerColours[number];
     timer = GameTimer(this, game.settings.gameTime, moveTime: game.settings.moveTime);
   }

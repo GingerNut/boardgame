@@ -7,7 +7,7 @@ import 'package:boardgame/src/position.dart';
 
 
 class InternetPlayer extends Player with Internet{
-  InternetPlayer(Game game, int number) : super(game, number);
+
 }
 
 

@@ -69,7 +69,7 @@ abstract class GameServer extends Server{
 
       case Server.startNewGame:
         newGame(Settings.fromString(m.substring(1)));
-        chatter = Chatter(game.players);
+        chatter = Chatter(this, game.players);
       break;
 
       case Server.checkGameStatus: updateState();

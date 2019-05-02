@@ -1,6 +1,8 @@
 
 import 'package:boardgame/src/game.dart';
+import 'package:boardgame/src/human/human_player.dart';
 import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/server/search_server.dart';
 import 'package:boardgame/src/settings.dart';
 import 'package:test/test.dart';
 
@@ -89,6 +91,28 @@ void main() {
   });
 
 
+  group('Chat ', (){
+
+    TestInterface ui = TestInterface();
+    SearchServer server = SearchServer();
+    ui.handShakeServer(server);
+
+    server.playerQueue.add(HumanPlayer()..id = 'henry');
+    server.playerQueue.add(HumanPlayer()..id = 'steve');
+    server.playerQueue.add(HumanPlayer()..id = 'john');
+    server.playerQueue.add(HumanPlayer()..id = 'jeff');
+
+    test('Basic chat',(){
+
+    ui.chatSend('hello', 'henry', 'john');
+
+
+
+
+    });
+
+
+  });
 
 
 

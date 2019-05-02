@@ -2,7 +2,6 @@
 
 
 import 'package:boardgame/src/interface/interface.dart';
-import 'package:boardgame/src/interface/user.dart';
 import 'package:boardgame/src/settings.dart';
 
 import 'test_game.dart';

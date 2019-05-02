@@ -61,17 +61,21 @@ abstract class Game {
 
         switch (settings.playerType) {
           case Player.human:
-            player = new HumanPlayer(this, i);
+            player = new HumanPlayer();
             break;
 
           case Player.computer:
-            player = new ComputerPlayer(this, i);
+            player = new ComputerPlayer();
             break;
 
           case Player.internet:
-            player = new InternetPlayer(this, i);
+            player = new InternetPlayer();
             break;
         }
+
+        player.game = this;
+        player.number = i;
+        player.initialise();
 
         players[i] = player;
         position.playerStatus[i] = PlayerStatus.waiting;

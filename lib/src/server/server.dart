@@ -47,7 +47,7 @@ abstract class Server{
 
     switch(s[0]){
 
-      case Server.chat: chatter.message(s.substring(1));
+      case Server.chat: chatter.chatReceived(s.substring(1));
       break;
 
 
@@ -57,6 +57,20 @@ abstract class Server{
 
 
 
+  }
+
+  chatSend(String text, String from, [String to]){
+
+    String message = Server.chat;
+    message += '\n';
+    message += from;
+    message += '\n';
+    (to != null) ? message += to : message += '';
+    message += '\n';
+    message += text;
+    message += '\n';
+
+    messagesOut.add(message);
   }
 
   message(String s);
