@@ -42,34 +42,34 @@ abstract class Interface extends Server{
 
   getGameServer();
 
-  checkGameStatus() => messagesOut.add(GameServer.checkGameStatus);
+  checkGameStatus() => messagesOut.add(Server.checkGameStatus);
 
   message(String m){
 
     switch(m[0]){
 
-      case GameServer.waitingForPlayers:
+      case Server.waitingForPlayers:
         gameState = GameState.waitingForPlayers;
         events.add(GameMessage(Event.reDraw));
         break;
 
-      case GameServer.finished:
+      case Server.finished:
         gameState = GameState.finished;
         break;
 
-      case GameServer.none:
+      case Server.none:
         gameState = GameState.none;
         break;
 
-      case GameServer.paused:
+      case Server.paused:
         gameState = GameState.paused;
         break;
 
-      case GameServer.started:
+      case Server.started:
         gameState = GameState.started;
         break;
 
-      case GameServer.waitingForAllReady:
+      case Server.waitingForAllReady:
         gameState = GameState.waitingForAllReady;
         break;
 
@@ -93,7 +93,7 @@ abstract class Interface extends Server{
 
     startServer();
 
-    messagesOut.add(GameServer.startNewGame + settings.string);
+    messagesOut.add(Server.startNewGame + settings.string);
 
     //TODO start the game and initialise computers
   }

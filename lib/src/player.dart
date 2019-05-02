@@ -16,6 +16,7 @@ abstract class Player{
   int color;
   String reasonOut;
   GameTimer timer;
+  String id;
   Player nextPlayer;
 
   double get timeLeft => timer.timeLeft;

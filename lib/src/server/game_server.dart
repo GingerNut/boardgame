@@ -2,24 +2,12 @@
 
 import 'package:boardgame/src/computer/computer.dart';
 import 'package:boardgame/src/game.dart';
+import 'package:boardgame/src/server/chatter.dart';
 import 'package:boardgame/src/server/server.dart';
 import 'package:boardgame/src/settings.dart';
 
 
 abstract class GameServer extends Server{
-
-  static const String waitingForPlayers = 'W';
-  static const String waitingForAllReady = 'A';
-  static const String started = 'S';
-  static const String paused = 'P';
-  static const String finished = 'F';
-  static const String none = 'O';
-  static const String startNewGame = 'G';
-  static const String move = 'M';
-  static const String checkGameStatus = 'K';
-  static const String chat = "H";
-  static const String connection = 'C';
-
 
   Game game;
   Computer computer;
@@ -45,27 +33,27 @@ abstract class GameServer extends Server{
     switch (game.state){
 
       case GameState.waitingForPlayers:
-        message = waitingForPlayers;
+        message = Server.waitingForPlayers;
         break;
 
       case GameState.finished:
-        message = finished;
+        message = Server.finished;
         break;
 
       case GameState.none:
-        message = none;
+        message = Server.none;
         break;
 
       case GameState.paused:
-        message = paused;
+        message = Server.paused;
         break;
 
       case GameState.started:
-        message = started;
+        message = Server.started;
         break;
 
       case GameState.waitingForAllReady:
-        message = waitingForAllReady;
+        message = Server.waitingForAllReady;
         break;
 
 
@@ -79,10 +67,12 @@ abstract class GameServer extends Server{
 
     switch(m[0]){
 
-      case startNewGame: newGame(Settings.fromString(m.substring(1)));
+      case Server.startNewGame:
+        newGame(Settings.fromString(m.substring(1)));
+        chatter = Chatter(game.players);
       break;
 
-      case checkGameStatus: updateState();
+      case Server.checkGameStatus: updateState();
       break;
 
 
@@ -97,7 +87,7 @@ abstract class GameServer extends Server{
 
     await game.initialise();
 
-    messagesOut.add(waitingForPlayers);
+    messagesOut.add(Server.waitingForPlayers);
   }
 
 

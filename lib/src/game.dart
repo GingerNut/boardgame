@@ -6,6 +6,7 @@ import 'package:boardgame/src/human/human_player.dart';
 import 'package:boardgame/src/internet/internet_player.dart';
 import 'package:boardgame/src/move/move.dart';
 import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/player_list.dart';
 import 'package:boardgame/src/position.dart';
 import 'package:boardgame/src/server/game_server.dart';
 import 'package:boardgame/src/settings.dart';
@@ -28,7 +29,7 @@ abstract class Game {
 
   int get numberOfPlayers => settings.numberOfPlayers;
   Position position;
-  List<Player> players;
+  PlayerList players;
   List<Move> history = new List();
 
   bool get gameOver => position.winner != null;
@@ -52,7 +53,7 @@ abstract class Game {
 
     position.initialise();
 
-    players = new List(numberOfPlayers);
+    players = PlayerList(numberOfPlayers);
 
     for (int i = 0; i < numberOfPlayers; i ++) {
       for (int i = 0; i < numberOfPlayers; i ++) {
