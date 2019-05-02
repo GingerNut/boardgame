@@ -2,12 +2,14 @@
 
 import 'dart:async';
 import 'package:boardgame/src/game.dart';
-import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/interface/login.dart';
 import 'package:boardgame/src/position.dart';
 import 'package:boardgame/src/server/game_server.dart';
+import 'package:boardgame/src/server/server.dart';
 import 'package:boardgame/src/settings.dart';
 
-abstract class Interface{
+abstract class Interface extends Server{
+  Login login;
   GameServer server;
   GameState gameState = GameState.none;
 
@@ -15,7 +17,7 @@ abstract class Interface{
 
   bool inputOpen = false;
   Position position;
-  Player interfacePlayer;
+  String playerId;
 
   final StreamController<GameMessage> events = StreamController.broadcast();
   final StreamController<GameMessage> changeScreen = StreamController.broadcast();
@@ -25,21 +27,16 @@ abstract class Interface{
 
   startServer() {
 
-    if(server == null) server = getServer();
+    if(server == null) server = getGameServer();
 
-    messagesOut = new StreamController<String>();
-
-    server.listeningPort(this, messagesOut.stream);
+    handShakeServer(server);
 
   }
 
-  getServer();
+  getLogin(Login login);
 
-  receivePort(Stream<String> stream){
-    messagesIn = stream;
-    stream.listen((m) => message(m));
-  }
-  
+  getGameServer();
+
   checkGameStatus() => messagesOut.add(GameServer.checkGameStatus);
 
   message(String m){
@@ -78,8 +75,8 @@ abstract class Interface{
 
 
 
-  go(Player player){
-    interfacePlayer = player;
+  go(String id){
+    playerId = id;
     inputOpen = true;
   }
 

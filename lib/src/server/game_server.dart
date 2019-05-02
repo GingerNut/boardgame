@@ -1,14 +1,13 @@
 
 
-import 'dart:async';
-
 import 'package:boardgame/src/computer/computer.dart';
 import 'package:boardgame/src/game.dart';
-import 'package:boardgame/src/interface/interface.dart';
+import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/server/server.dart';
 import 'package:boardgame/src/settings.dart';
 
 
-abstract class GameServer{
+abstract class GameServer extends Server{
 
   static const String waitingForPlayers = 'W';
   static const String waitingForAllReady = 'A';
@@ -18,19 +17,24 @@ abstract class GameServer{
   static const String none = 'O';
   static const String startNewGame = 'G';
   static const String move = 'M';
-  static const String checkGameStatus = 'C';
+  static const String checkGameStatus = 'K';
+  static const String chat = "H";
+  static const String connection = 'C';
+
 
   Game game;
   Computer computer;
 
-  Stream<String> messagesIn;
-  StreamController<String> messagesOut;
 
-  listeningPort(Interface interface, Stream stream){
-    messagesIn = stream;
-    messagesIn.listen((m) => message(m));
-    messagesOut = StreamController<String>();
-    interface.receivePort(messagesOut.stream);
+
+  join(String playerDetails){
+
+
+  }
+
+  kick(String playerDetails){
+
+
   }
 
   getGame(Settings settings);
