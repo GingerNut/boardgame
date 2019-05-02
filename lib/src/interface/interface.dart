@@ -2,14 +2,15 @@
 
 import 'dart:async';
 import 'package:boardgame/src/game.dart';
-import 'package:boardgame/src/interface/login.dart';
+import 'package:boardgame/src/interface/user.dart';
+
 import 'package:boardgame/src/position.dart';
 import 'package:boardgame/src/server/game_server.dart';
 import 'package:boardgame/src/server/server.dart';
 import 'package:boardgame/src/settings.dart';
 
 abstract class Interface extends Server{
-  Login login;
+  Set<User> users = Set();
   GameServer server;
   GameState gameState = GameState.none;
 
@@ -17,13 +18,10 @@ abstract class Interface extends Server{
 
   bool inputOpen = false;
   Position position;
-  String playerId;
+  String currentUser;
 
   final StreamController<GameMessage> events = StreamController.broadcast();
   final StreamController<GameMessage> changeScreen = StreamController.broadcast();
-
-  Stream<String> messagesIn;
-  StreamController<String> messagesOut;
 
   startServer() {
 
@@ -33,7 +31,14 @@ abstract class Interface extends Server{
 
   }
 
-  getLogin(Login login);
+  login(User user){
+    if(users.length == 1 && users.last.displayName == User.defaultUser) users.clear();
+    users.add(user);
+  }
+
+  logout(User user){
+    users.remove(user);
+  }
 
   getGameServer();
 
@@ -76,11 +81,15 @@ abstract class Interface extends Server{
 
 
   go(String id){
-    playerId = id;
+    currentUser = id;
     inputOpen = true;
   }
 
   setUpNewGame() async{
+    
+    if(users.isEmpty) users.add(
+        User.getDefault()
+    );
 
     startServer();
 

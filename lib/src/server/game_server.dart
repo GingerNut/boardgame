@@ -2,7 +2,6 @@
 
 import 'package:boardgame/src/computer/computer.dart';
 import 'package:boardgame/src/game.dart';
-import 'package:boardgame/src/player.dart';
 import 'package:boardgame/src/server/server.dart';
 import 'package:boardgame/src/settings.dart';
 
