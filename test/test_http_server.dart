@@ -1,9 +1,16 @@
 
 import 'dart:io';
 
-//  C:\Users\Stephen\growing_games\boardgame\lib\src\server
+// to set up the server cd to the following at the cmd prompt
+//
+//  cd C:\Users\Stephen\growing_games\boardgame\test
+//
+// then type this at command prompt:
+//
+// dart test_http_server.dart
 
   Future main() async {
+
     var server = await HttpServer.bind(
       InternetAddress.loopbackIPv4,
       4040,

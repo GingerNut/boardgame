@@ -1,6 +1,6 @@
 
 import 'dart:io';
-
+import 'dart:convert';
 import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/human/human_player.dart';
 import 'package:boardgame/src/player.dart';
@@ -100,17 +100,34 @@ void main() {
     HttpServer server;
     Uri url;
 
+    Future<String> request([String details])async{
+
+      String reply;
+
+      var request = await HttpClient().getUrl(url);
+
+      // sends the request
+      var response = await request.close();
+
+      // transforms and prints the response
+      await for (var contents in response.transform(Utf8Decoder())) {
+        reply = contents;
+      }
+
+      return reply;
+    }
+
     setUp(() async{
       server = await HttpServer.bind('localhost', 0);
-      url = Uri.parse("http://${server.address.host}:${server.port}");
-
+      url = Uri.parse("http://${server.address.host}:4040");
     });
 
     test('Setting up basic server ', () async{
 
-      var channel = spawnHybridUri('lib/src/server/web_server.dart');
+      String reply = await request();
 
-      channel.stream.listen((s){print(s);});
+       await print(reply);
+
 
     });
 
@@ -121,7 +138,9 @@ void main() {
     });
 
 
-  });
+  },
+//      skip: 'must have server working'
+  );
 
 
 
