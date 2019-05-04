@@ -29,7 +29,7 @@ abstract class Server{
     messagesIn.listen((m) => serverMessage(m));
 
     if(messagesOut == null){
-      messagesOut = StreamController<String>();
+      messagesOut = StreamController.broadcast();
       server.listeningPort(this, messagesOut.stream);
     }
 

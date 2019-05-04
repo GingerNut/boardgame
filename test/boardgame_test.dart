@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/human/human_player.dart';
 import 'package:boardgame/src/player.dart';
@@ -9,16 +11,14 @@ import 'package:test/test.dart';
 import 'test_game/test_interface.dart';
 
 void main() {
-
   group('Set up a new game', () {
-
     TestInterface ui = TestInterface();
 
     setUp(() {
 
     });
 
-    test('Start a game against three computers ', () async{
+    test('Start a game against three computers ', () async {
       await ui.setUpNewGame();
 
       expect(ui.server.game.settings.numberOfPlayers, ui.settings.numberOfPlayers);
@@ -27,15 +27,13 @@ void main() {
       expect(ui.server.game.settings.gameTime, ui.settings.gameTime);
       expect(ui.server.game.settings.moveTime, ui.settings.moveTime);
 
-      ui.events.stream.listen((s){
-        expect(ui.gameState, GameState.waitingForPlayers);
-      });
+      Future<String> string = ui.messagesIn.first;
 
-
+      expect(await string, 'W');
 
     });
 
-    test('setting game state ', () async{
+    test('setting game state ', () async {
       await ui.setUpNewGame();
 
       ui.server.game.state = GameState.waitingForPlayers;
@@ -44,20 +42,11 @@ void main() {
       ui.server.game.state = GameState.started;
       ui.server.game.state = GameState.paused;
       ui.server.game.state = GameState.finished;
-
-
-
-
     });
-
-
-
-
   });
 
   group('Settings tests ', () {
-
-    test('Stingify ', (){
+    test('Stingify ', () {
       Settings settings = Settings();
       Settings stringed = Settings.fromString(settings.string);
 
@@ -66,10 +55,9 @@ void main() {
       expect(settings.timer, stringed.timer);
       expect(settings.gameTime, stringed.gameTime);
       expect(settings.moveTime, stringed.moveTime);
-
     });
 
-    test('Stingify ', (){
+    test('Stingify ', () {
       Settings settings = Settings();
 
       settings.numberOfPlayers = 3;
@@ -83,36 +71,60 @@ void main() {
       expect(settings.timer, stringed.timer);
       expect(settings.gameTime, stringed.gameTime);
       expect(settings.moveTime, stringed.moveTime);
-
-
     });
-
-
   });
 
 
-  group('Chat ', (){
-
+  group('Chat ', () {
     TestInterface ui = TestInterface();
     SearchServer server = SearchServer();
     ui.handShakeServer(server);
 
-    server.playerQueue.add(HumanPlayer()..id = 'henry');
-    server.playerQueue.add(HumanPlayer()..id = 'steve');
-    server.playerQueue.add(HumanPlayer()..id = 'john');
-    server.playerQueue.add(HumanPlayer()..id = 'jeff');
+    server.playerQueue.add(HumanPlayer()
+      ..id = 'henry');
+    server.playerQueue.add(HumanPlayer()
+      ..id = 'steve');
+    server.playerQueue.add(HumanPlayer()
+      ..id = 'john');
+    server.playerQueue.add(HumanPlayer()
+      ..id = 'jeff');
 
-    test('Basic chat',(){
+    test('Basic chat', () {
+      ui.chatSend('hello', 'henry', 'john');
+    });
+  });
 
-    ui.chatSend('hello', 'henry', 'john');
 
+  group('Server tests ', (){
 
+    HttpServer server;
+    Uri url;
 
+    setUp(() async{
+      server = await HttpServer.bind('localhost', 0);
+      url = Uri.parse("http://${server.address.host}:${server.port}");
 
+    });
+
+    test('Setting up basic server ', () async{
+
+      var channel = spawnHybridUri('lib/src/server/web_server.dart');
+
+      channel.stream.listen((s){print(s);});
+
+    });
+
+    tearDown(() async {
+      await server.close(force: true);
+      server = null;
+      url = null;
     });
 
 
   });
+
+
+
 
 
 
