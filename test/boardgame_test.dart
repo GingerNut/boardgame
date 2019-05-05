@@ -1,6 +1,7 @@
 
 
 import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/server/http_server.dart';
 import 'package:boardgame/src/server/server.dart';
 import 'package:boardgame/src/settings.dart';
 import 'package:test/test.dart';
@@ -59,7 +60,6 @@ void main() {
 
   group('Chat ', () {
 
-
     test('Basic chat', () {
 
     });
@@ -68,11 +68,11 @@ void main() {
 
   group('Search server ', (){
 
-    Server server = Server();
+    HttpGameServer server = HttpGameServer();
 
     test('Setting up basic server ', () async{
 
-      expect(await server.message(Server.apply + 'harry'), Server.apply + 'harry');
+
 
     });
 
@@ -87,22 +87,25 @@ void main() {
 
   group('Server tests ', (){
 
+    HttpGameServer gameServer = HttpGameServer();
+
     TestInterface ui = TestInterface();
 
     setUp(() async{
-     await ui.connectToServer();
+     await gameServer.connectLocalhost();
+     await gameServer.clearPlayers();
     });
 
     test('Setting up basic server ', () async{
 
-       expect(await ui.postRequest(Server.apply + 'harry'), Server.apply + 'harry');
-       expect(await ui.postRequest(Server.apply + 'jane'), Server.apply + 'jane');
-       expect(await ui.postRequest(Server.getAllUsers), Server.getAllUsers + 'harry\njane\n');
+       expect(await gameServer.postRequest(Server.apply + 'harry'), Server.apply + 'harry');
+       expect(await gameServer.postRequest(Server.apply + 'jane'), Server.apply + 'jane');
+       expect(await gameServer.postRequest(Server.getAllUsers), Server.getAllUsers + 'harry\njane\n');
 
     });
 
     tearDown(() async {
-     await  ui.tidyUp();
+     await  gameServer.tidyUp();
     });
 
 

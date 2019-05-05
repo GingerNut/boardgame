@@ -1,6 +1,7 @@
 
 import 'dart:io';
 
+import 'package:boardgame/src/server/http_server.dart';
 import 'package:boardgame/src/server/server.dart';
 
 // to set up the server cd to the following at the cmd prompt
@@ -17,7 +18,7 @@ Future main() async {
   );
   print('Listening on localhost:${server.port}');
 
-  Server searchServer = Server();
+  HttpGameServer searchServer = HttpGameServer();
 
   await for (HttpRequest request in server) {
     searchServer.handleResponse(request);

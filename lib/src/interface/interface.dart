@@ -5,6 +5,8 @@ import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/interface/user.dart';
 
 import 'package:boardgame/src/position.dart';
+import 'package:boardgame/src/server/http_server.dart';
+import 'package:boardgame/src/server/local_server.dart';
 import 'package:boardgame/src/server/server.dart';
 
 import 'package:boardgame/src/settings.dart';
@@ -13,6 +15,9 @@ abstract class Interface{
 
   User user = User();
   Set<User> users = Set();
+
+  HttpGameServer httpGameServer = HttpGameServer();
+  LocalGameServer localGameServer = LocalGameServer();
 
   GameState gameState = GameState.none;
 
@@ -26,19 +31,12 @@ abstract class Interface{
   final StreamController<GameMessage> events = StreamController.broadcast();
   final StreamController<GameMessage> changeScreen = StreamController.broadcast();
 
-  connectToServer();
 
-  tidyUp();
-
- // postRequest(String string);
-
- // getRequest(String string);
-
-
-
-  login(User user){
+  login(User user) async{
     if(users.length == 1 && users.last.displayName == User.defaultUser) users.clear();
-    users.add(user);
+    this.user = user;
+
+    await httpGameServer.postRequest(Server.apply + user.id);
   }
 
   logout(User user){
@@ -95,7 +93,7 @@ abstract class Interface{
   }
 
   setUpNewGame() async{
-    
+
     if(users.isEmpty) users.add(
         User.getDefault()
     );

@@ -22,6 +22,8 @@ class PlayerList{
 
   int get length  => _players.length;
 
+  clear() => _players.clear();
+
   Player getPlayerWithId(String id){
 
     Player player;
@@ -33,6 +35,24 @@ class PlayerList{
     return player;
 
   }
+
+  printAll(){
+    _players.forEach((p) => print(p.id));
+
+  }
+
+  Future<String> getListOfUsers() async{
+    String response = '';
+
+    _players.forEach((p) {
+      response += p.id;
+      response += '\n';
+
+    } );
+
+    return response;
+  }
+
 
 
 
