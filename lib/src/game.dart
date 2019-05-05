@@ -2,13 +2,11 @@
 
 import 'package:boardgame/src/board.dart';
 import 'package:boardgame/src/computer/computer_player.dart';
-import 'package:boardgame/src/human/human_player.dart';
-import 'package:boardgame/src/internet/internet_player.dart';
 import 'package:boardgame/src/move/move.dart';
 import 'package:boardgame/src/player.dart';
 import 'package:boardgame/src/player_list.dart';
 import 'package:boardgame/src/position.dart';
-import 'package:boardgame/src/server/search_server.dart';
+import 'package:boardgame/src/server/server.dart';
 
 import 'package:boardgame/src/settings.dart';
 
@@ -62,16 +60,13 @@ abstract class Game {
 
         switch (settings.playerType) {
           case Player.human:
-            player = new HumanPlayer();
+            player = Player();
             break;
 
           case Player.computer:
-            player = new ComputerPlayer();
+            player = ComputerPlayer();
             break;
 
-          case Player.internet:
-            player = new InternetPlayer();
-            break;
         }
 
         player.game = this;

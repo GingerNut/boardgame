@@ -2,7 +2,7 @@
 
 import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/position.dart';
-import 'package:boardgame/src/server/search_server.dart';
+import 'package:boardgame/src/server/server.dart';
 
 import 'package:boardgame/src/settings.dart';
 

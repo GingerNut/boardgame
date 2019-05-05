@@ -22,5 +22,7 @@ enum UserStatus{
   browsing,
   disconnected,
   waitingToJoin,
-  playing
+  thinking,
+  waitingToGo,
+  observing
 }

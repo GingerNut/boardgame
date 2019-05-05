@@ -1,7 +1,7 @@
 
 
 import 'package:boardgame/src/player.dart';
-import 'package:boardgame/src/server/search_server.dart';
+import 'package:boardgame/src/server/server.dart';
 import 'package:boardgame/src/settings.dart';
 import 'package:test/test.dart';
 

@@ -9,7 +9,6 @@ export 'src/position.dart';
 export 'src/player.dart';
 export 'src/move/move.dart';
 export 'src/settings.dart';
-export 'src/human/human_player.dart';
 export 'src/internet/internet_player.dart';
 export 'src/computer/computer_player.dart';
 export 'src/palette.dart';

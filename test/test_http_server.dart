@@ -1,7 +1,7 @@
 
 import 'dart:io';
 
-import 'package:boardgame/src/server/search_server.dart';
+import 'package:boardgame/src/server/server.dart';
 
 // to set up the server cd to the following at the cmd prompt
 //

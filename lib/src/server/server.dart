@@ -6,13 +6,11 @@ import 'dart:math';
 
 import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/player_list.dart';
-import 'package:boardgame/src/server/chatter.dart';
-
 import 'package:boardgame/src/server/user_database.dart';
 
 class Server {
   static const String waitingForPlayers = 'W';
-  static const String waitingForAllReady = 'A';
+  static const String waitingForAllReady = 'T';
   static const String started = 'S';
   static const String paused = 'P';
   static const String finished = 'F';
@@ -122,9 +120,6 @@ class Server {
     return new String.fromCharCodes(codeUnits);
   }
 
-
-
-//bool addPlayer(String name) => database.addPlayer(name);
 
 
   }

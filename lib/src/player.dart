@@ -6,7 +6,7 @@ import 'package:boardgame/src/game_timer.dart';
 import 'package:boardgame/src/palette.dart';
 import 'package:boardgame/src/position.dart';
 
-abstract class Player{
+class Player{
   static const int human = 0;
   static const int computer = 1;
   static const int internet = 2;
@@ -29,7 +29,10 @@ abstract class Player{
   }
 
 
-  yourTurn(Position position);
+  yourTurn(Position position){
+
+    
+  }
 
   wait(){
 

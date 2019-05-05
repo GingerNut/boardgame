@@ -7,13 +7,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:boardgame/src/interface/interface.dart';
-import 'package:boardgame/src/settings.dart';
-
-import 'test_game.dart';
 
 
 class TestInterface extends Interface{
-
 
   HttpServer httpServer;
   Uri url;
