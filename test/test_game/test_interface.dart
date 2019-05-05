@@ -7,13 +7,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:boardgame/src/interface/interface.dart';
-import 'package:boardgame/src/server/server.dart';
 import 'package:boardgame/src/settings.dart';
 
 import 'test_game.dart';
-import 'test_server.dart';
+
 
 class TestInterface extends Interface{
+
 
   HttpServer httpServer;
   Uri url;
@@ -38,15 +38,10 @@ class TestInterface extends Interface{
 
   tidyUp() async{
     await httpServer.close(force: true);
-    server = null;
+    httpServer = null;
     url = null;
 
   }
-
-  createNewGame(Settings settings) => TestGame(settings, server);
-
-  getGameServer() => TestServer();
-
 
 
   Future<String> getRequest([String details])async{
@@ -83,6 +78,8 @@ class TestInterface extends Interface{
 
     return reply;
   }
+
+
 
 
 

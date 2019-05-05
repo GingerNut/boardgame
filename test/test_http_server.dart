@@ -17,7 +17,7 @@ Future main() async {
   );
   print('Listening on localhost:${server.port}');
 
-  SearchServer searchServer = SearchServer();
+  Server searchServer = Server();
 
   await for (HttpRequest request in server) {
     searchServer.handleResponse(request);

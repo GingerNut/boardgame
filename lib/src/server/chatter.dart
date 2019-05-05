@@ -1,7 +1,8 @@
 
 import 'package:boardgame/src/player.dart';
 import 'package:boardgame/src/player_list.dart';
-import 'package:boardgame/src/server/server.dart';
+import 'package:boardgame/src/server/search_server.dart';
+
 
 
 class Chatter{

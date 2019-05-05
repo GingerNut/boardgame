@@ -8,17 +8,18 @@ import 'package:boardgame/src/move/move.dart';
 import 'package:boardgame/src/player.dart';
 import 'package:boardgame/src/player_list.dart';
 import 'package:boardgame/src/position.dart';
-import 'package:boardgame/src/server/game_server.dart';
+import 'package:boardgame/src/server/search_server.dart';
+
 import 'package:boardgame/src/settings.dart';
 
 abstract class Game {
   final Settings settings;
-  final GameServer server;
+
   GameState _state = GameState.none;
+  Server server;
 
   set state(GameState newState){
     _state = newState;
-    server.updateState();
   }
 
   GameState get state =>_state;

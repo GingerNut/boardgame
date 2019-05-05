@@ -5,15 +5,15 @@ import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/interface/user.dart';
 
 import 'package:boardgame/src/position.dart';
-import 'package:boardgame/src/server/game_server.dart';
-import 'package:boardgame/src/server/server.dart';
+import 'package:boardgame/src/server/search_server.dart';
+
 import 'package:boardgame/src/settings.dart';
 
-abstract class Interface extends Server{
+abstract class Interface{
 
   User user = User();
   Set<User> users = Set();
-  GameServer server;
+
   GameState gameState = GameState.none;
 
 
@@ -34,13 +34,7 @@ abstract class Interface extends Server{
 
  // getRequest(String string);
 
-  startServer() {
 
-    if(server == null) server = getGameServer();
-
-    handShakeServer(server);
-
-  }
 
   login(User user){
     if(users.length == 1 && users.last.displayName == User.defaultUser) users.clear();
@@ -50,10 +44,6 @@ abstract class Interface extends Server{
   logout(User user){
     users.remove(user);
   }
-
-  getGameServer();
-
-  checkGameStatus() => messagesOut.add(Server.checkGameStatus);
 
   message(String m){
 
@@ -110,9 +100,6 @@ abstract class Interface extends Server{
         User.getDefault()
     );
 
-    startServer();
-
-    messagesOut.add(Server.startNewGame + settings.string);
 
     //TODO start the game and initialise computers
   }
