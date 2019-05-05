@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:boardgame/src/interface/interface.dart';
+import 'package:boardgame/src/server/server.dart';
 import 'package:boardgame/src/settings.dart';
 
 import 'test_game.dart';
@@ -16,10 +17,23 @@ class TestInterface extends Interface{
 
   HttpServer httpServer;
   Uri url;
+  int port = 4040;
 
-  initialise() async{
+  connectToServer() async {
     httpServer = await HttpServer.bind('localhost', 0);
-    url = await Uri.parse("http://${httpServer.address.host}:4040");
+    url = await Uri.parse("http://${httpServer.address.host}:$port");
+  }
+
+  updateLogin(){
+
+
+
+  }
+
+  getUserList(){
+
+
+
   }
 
   tidyUp() async{

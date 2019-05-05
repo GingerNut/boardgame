@@ -10,6 +10,8 @@ import 'package:boardgame/src/server/server.dart';
 import 'package:boardgame/src/settings.dart';
 
 abstract class Interface extends Server{
+
+  User user = User();
   Set<User> users = Set();
   GameServer server;
   GameState gameState = GameState.none;
@@ -24,7 +26,7 @@ abstract class Interface extends Server{
   final StreamController<GameMessage> events = StreamController.broadcast();
   final StreamController<GameMessage> changeScreen = StreamController.broadcast();
 
-  initialise();
+  connectToServer();
 
   tidyUp();
 
@@ -56,6 +58,14 @@ abstract class Interface extends Server{
   message(String m){
 
     switch(m[0]){
+
+      case Server.apply:
+        user.id = m;
+        break;
+
+      case Server.getAllUsers:
+        print(m);
+        break;
 
       case Server.waitingForPlayers:
         gameState = GameState.waitingForPlayers;
@@ -115,6 +125,8 @@ abstract class Interface extends Server{
     events.close();
     changeScreen.close();
   }
+
+
 }
 
 enum Event{

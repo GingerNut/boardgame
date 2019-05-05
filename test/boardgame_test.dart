@@ -5,6 +5,7 @@ import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/human/human_player.dart';
 import 'package:boardgame/src/player.dart';
 import 'package:boardgame/src/server/search_server.dart';
+import 'package:boardgame/src/server/server.dart';
 import 'package:boardgame/src/settings.dart';
 import 'package:test/test.dart';
 
@@ -95,18 +96,38 @@ void main() {
   });
 
 
+  group('Search server ', (){
+
+    SearchServer server = SearchServer();
+
+    test('Setting up basic server ', () async{
+
+      expect(await server.message(Server.apply + 'harry'), Server.apply + 'harry');
+
+    });
+
+
+
+
+  },
+//      skip: 'must have server working'
+  );
+
+
+
   group('Server tests ', (){
 
     TestInterface ui = TestInterface();
 
     setUp(() async{
-     await ui.initialise();
+     await ui.connectToServer();
     });
 
     test('Setting up basic server ', () async{
 
-       expect(await ui.postRequest('hey'), 'hey');
-
+       expect(await ui.postRequest(Server.apply + 'harry'), Server.apply + 'harry');
+       expect(await ui.postRequest(Server.apply + 'jane'), Server.apply + 'jane');
+       expect(await ui.postRequest(Server.getAllUsers), Server.getAllUsers + 'harry\njane\n');
 
     });
 

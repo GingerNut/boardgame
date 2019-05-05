@@ -25,6 +25,8 @@ class UserDatabase{
     _userList.printAll();
   }
 
+  Future<String> getAllUsers() => _userList.getListOfUsers();
+
 
 
 

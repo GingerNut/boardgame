@@ -41,6 +41,18 @@ class UserList{
 
   }
 
+  Future<String> getListOfUsers() async{
+    String response = '';
+
+    _users.forEach((u) {
+      response += u.id;
+      response += '\n';
+
+    } );
+
+    return response;
+  }
+
 
 
 }

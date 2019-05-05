@@ -19,6 +19,11 @@ abstract class Server{
   static const String checkGameStatus = 'K';
   static const String chat = "H";
   static const String connection = 'C';
+  static const String apply = 'A';
+  static const String login = 'L';
+  static const String success = 'U';
+  static const String fail = 'I';
+  static const String getAllUsers = 'E';
 
   Stream<String> messagesIn;
   StreamController<String> messagesOut;

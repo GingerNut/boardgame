@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/player_list.dart';
@@ -20,12 +21,6 @@ class SearchServer extends Server{
   SearchServer(){
 
     chatter = Chatter(this, playerQueue);
-  }
-
-
-
-  message(String s) {
-//TODO message
   }
 
 
@@ -64,12 +59,60 @@ class SearchServer extends Server{
   handlePost(HttpRequest request) async{
 
     String payload = await request.transform(Utf8Decoder()).join();
+    
+    String reply = await message(payload);
 
     request.response
-      ..write(payload)
+      ..write(reply)
       ..close();
 
   }
+
+  Future<String> message(String m) async{
+
+    String response = m[0];
+
+    switch(m[0]){
+
+      case Server.apply:
+        response += await applyToJoin(m.substring(1));
+        break;
+
+      case Server.getAllUsers:
+        response += await database.getAllUsers();
+        break;
+
+
+    }
+
+
+    return response;
+  }
+  
+  Future<String> applyToJoin(String string) async{
+
+    if(string == '?') string = randomName();
+
+    database.addPlayer(string);
+
+    return string;
+  }
+
+  String randomName()=> _randomString(8);
+
+  String _randomString(int length) {
+    var rand = new Random();
+    var codeUnits = new List.generate(
+        length,
+            (index){
+          return rand.nextInt(26)+97;
+        }
+    );
+
+    return new String.fromCharCodes(codeUnits);
+  }
+
+
 
 //bool addPlayer(String name) => database.addPlayer(name);
 
