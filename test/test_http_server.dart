@@ -1,6 +1,8 @@
 
 import 'dart:io';
 
+import 'package:boardgame/src/server/search_server.dart';
+
 // to set up the server cd to the following at the cmd prompt
 //
 //  cd C:\Users\Stephen\growing_games\boardgame\test
@@ -17,14 +19,10 @@ import 'dart:io';
     );
     print('Listening on localhost:${server.port}');
 
+    SearchServer searchServer = SearchServer();
+
     await for (HttpRequest request in server) {
-      request.response
-        ..write('Hello, world!')
-        ..close();
+      searchServer.handleResponse(request);
     }
   }
-
-
-
-
 

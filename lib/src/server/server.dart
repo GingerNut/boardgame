@@ -1,6 +1,7 @@
 
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:boardgame/src/server/chatter.dart';
 
@@ -75,7 +76,29 @@ abstract class Server{
 
   message(String s);
 
+  handleResponse(HttpRequest request){
 
+    switch(request.method){
+      case 'GET': handleGet(request);
+      break;
+
+      case 'POST': handlePost(request);
+      break;
+
+      default:
+        request.response
+          ..statusCode = HttpStatus.methodNotAllowed
+          ..write('Unsupported request: ${request.method}.')
+          ..close();
+        break;
+
+    }
+
+  }
+
+  handleGet(HttpRequest request);
+
+  handlePost(HttpRequest request);
 
 
 
