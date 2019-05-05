@@ -124,9 +124,7 @@ void main() {
 
     test('Setting up basic server ', () async{
 
-      String reply = await request();
-
-       await print(reply);
+      print(await request());
 
 
     });

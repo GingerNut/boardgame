@@ -7,31 +7,37 @@ import 'package:boardgame/src/interface/user.dart';
 
 class UserList{
 
-  List<User> _players;
+  List<User> _users;
 
   UserList([int size]){
 
-    if(size != null) _players = List(size);
-    else _players = List();
+    if(size != null) _users = List(size);
+    else _users = List();
 
   }
 
-  operator [](int i) => _players[i];
-  operator []=(int i, User value) => _players[i] = value;
+  operator [](int i) => _users[i];
+  operator []=(int i, User value) => _users[i] = value;
 
-  add(User player) => _players.add(player);
+  add(User player) => _users.add(player);
 
-  int get length  => _players.length;
+  int get length  => _users.length;
 
   User getUserWithId(String id){
 
     User player;
 
-    _players.forEach((p) {
+    _users.forEach((p) {
       if(p.id == id) player = p;
     });
 
     return player;
+
+  }
+
+
+  printAll(){
+    _users.forEach((u) => print(u.id));
 
   }
 

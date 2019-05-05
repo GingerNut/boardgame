@@ -8,9 +8,11 @@ import 'package:boardgame/src/player_list.dart';
 import 'package:boardgame/src/server/chatter.dart';
 
 import 'package:boardgame/src/server/server.dart';
+import 'package:boardgame/src/server/user_database.dart';
 
 class SearchServer extends Server{
 
+  UserDatabase database = UserDatabase();
 
   PlayerList playerQueue = PlayerList();
   List<Game> gamesAdvertised = new List();
@@ -25,7 +27,7 @@ class SearchServer extends Server{
 
 
   message(String s) {
-
+//TODO message
   }
 
 
@@ -43,10 +45,14 @@ class SearchServer extends Server{
     String payload = await request.transform(Utf8Decoder()).join();
     var username = Uri.splitQueryString(payload)['username'];
 
+    database.addPlayer(username);
 
-    print('posting');
-
+    database.printAll();
   }
+
+  bool addPlayer(String name) => database.addPlayer(name);
+
+
 
 
 
