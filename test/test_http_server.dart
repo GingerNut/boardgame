@@ -5,24 +5,22 @@ import 'package:boardgame/src/server/search_server.dart';
 
 // to set up the server cd to the following at the cmd prompt
 //
-//  cd C:\Users\Stephen\growing_games\boardgame\test
-//
-// then type this at command prompt:
-//
-// dart test_http_server.dart
+//    cd C:\Users\Stephen\growing_games\boardgame\test
 
-  Future main() async {
+//    dart test_http_server.dart
 
-    var server = await HttpServer.bind(
-      InternetAddress.loopbackIPv4,
-      4040,
-    );
-    print('Listening on localhost:${server.port}');
+Future main() async {
 
-    SearchServer searchServer = SearchServer();
+  var server = await HttpServer.bind(
+    InternetAddress.loopbackIPv4,
+    4040,
+  );
+  print('Listening on localhost:${server.port}');
 
-    await for (HttpRequest request in server) {
-      searchServer.handleResponse(request);
-    }
+  SearchServer searchServer = SearchServer();
+
+  await for (HttpRequest request in server) {
+    searchServer.handleResponse(request);
   }
+}
 

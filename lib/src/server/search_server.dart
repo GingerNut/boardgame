@@ -24,10 +24,30 @@ class SearchServer extends Server{
 
 
 
-
-
   message(String s) {
 //TODO message
+  }
+
+
+
+  handleResponse(HttpRequest request){
+
+    switch(request.method){
+      case 'GET': handleGet(request);
+      break;
+
+      case 'POST': handlePost(request);
+      break;
+
+      default:
+        request.response
+          ..statusCode = HttpStatus.methodNotAllowed
+          ..write('Unsupported request: ${request.method}.')
+          ..close();
+        break;
+
+    }
+
   }
 
 
@@ -42,19 +62,26 @@ class SearchServer extends Server{
   }
 
   handlePost(HttpRequest request) async{
+
     String payload = await request.transform(Utf8Decoder()).join();
-    var username = Uri.splitQueryString(payload)['username'];
 
-    database.addPlayer(username);
+    request.response
+      ..write(payload)
+      ..close();
 
-    database.printAll();
   }
 
-  bool addPlayer(String name) => database.addPlayer(name);
+//bool addPlayer(String name) => database.addPlayer(name);
+
+
+  }
 
 
 
 
 
 
-}
+
+
+
+

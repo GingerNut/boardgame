@@ -1,6 +1,6 @@
 
 
-import 'dart:io';
+
 
 import 'package:boardgame/src/server/game_server.dart';
 import 'package:boardgame/src/settings.dart';
@@ -13,16 +13,18 @@ class TestServer extends GameServer{
   getGame(Settings settings) => TestGame(settings, this);
 
   @override
-  handleGet(HttpRequest request) {
+  handleGet(String string) {
     // TODO: implement handleGet
     return null;
   }
 
   @override
-  handlePost(HttpRequest request) {
+  handlePost(String string) {
     // TODO: implement handlePost
     return null;
   }
+
+
 
 
 

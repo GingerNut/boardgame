@@ -14,6 +14,7 @@ abstract class Interface extends Server{
   GameServer server;
   GameState gameState = GameState.none;
 
+
   Settings settings = Settings();
 
   bool inputOpen = false;
@@ -22,6 +23,14 @@ abstract class Interface extends Server{
 
   final StreamController<GameMessage> events = StreamController.broadcast();
   final StreamController<GameMessage> changeScreen = StreamController.broadcast();
+
+  initialise();
+
+  tidyUp();
+
+ // postRequest(String string);
+
+ // getRequest(String string);
 
   startServer() {
 

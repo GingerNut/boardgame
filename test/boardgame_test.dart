@@ -97,49 +97,27 @@ void main() {
 
   group('Server tests ', (){
 
-    HttpServer server;
-    Uri url;
-
-    Future<String> request([String details])async{
-
-      String reply;
-
-      var request = await HttpClient().getUrl(url);
-
-      // sends the request
-      var response = await request.close();
-
-      // transforms and prints the response
-      await for (var contents in response.transform(Utf8Decoder())) {
-        reply = contents;
-      }
-
-      return reply;
-    }
+    TestInterface ui = TestInterface();
 
     setUp(() async{
-      server = await HttpServer.bind('localhost', 0);
-      url = Uri.parse("http://${server.address.host}:4040");
+     await ui.initialise();
     });
 
     test('Setting up basic server ', () async{
 
-      print(await request());
+       expect(await ui.postRequest('hey'), 'hey');
 
 
     });
 
     tearDown(() async {
-      await server.close(force: true);
-      server = null;
-      url = null;
+     await  ui.tidyUp();
     });
 
 
   },
 //      skip: 'must have server working'
   );
-
 
 
 
