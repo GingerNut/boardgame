@@ -1,26 +1,29 @@
 
 
 import 'dart:async';
+import 'package:boardgame/src/command/new_game.dart';
+import 'package:boardgame/src/computer/computer_player.dart';
 import 'package:boardgame/src/game.dart';
-import 'package:boardgame/src/interface/user.dart';
+import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/player_list.dart';
 
 import 'package:boardgame/src/position.dart';
-import 'package:boardgame/src/server/http_server.dart';
-import 'package:boardgame/src/server/local_server.dart';
+
 import 'package:boardgame/src/server/server.dart';
 
 import 'package:boardgame/src/settings.dart';
 
 abstract class Interface{
 
-  User user = User();
-  Set<User> users = Set();
+  //TODO include bluetooth connectivity
 
-  HttpGameServer httpGameServer = HttpGameServer();
-  LocalGameServer localGameServer = LocalGameServer();
+  PlayerList players = PlayerList();
+  Game game;
+
+  Game getGame(NewGame details);
+  Server getServer();
 
   GameState gameState = GameState.none;
-
 
   Settings settings = Settings();
 
@@ -31,75 +34,57 @@ abstract class Interface{
   final StreamController<GameMessage> events = StreamController.broadcast();
   final StreamController<GameMessage> changeScreen = StreamController.broadcast();
 
+  addLocalPlayer(Player player) {
 
-  login(User user) async{
-    if(users.length == 1 && users.last.displayName == User.defaultUser) users.clear();
-    this.user = user;
+    if(players.isEmpty) players.add(Player());
 
-    await httpGameServer.postRequest(Server.apply + user.id);
-  }
+    if(players.length < settings.numberOfPlayers) players.add(player);
 
-  logout(User user){
-    users.remove(user);
-  }
 
-  message(String m){
+    players.forEach((p){
+      if(p.displayName == null){
 
-    switch(m[0]){
+        String base;
 
-      case Server.apply:
-        user.id = m;
-        break;
+        if(p is ComputerPlayer) base = 'Computer';
+        else base = 'Player';
 
-      case Server.getAllUsers:
-        print(m);
-        break;
+        int trialInt = 1;
 
-      case Server.waitingForPlayers:
-        gameState = GameState.waitingForPlayers;
-        events.add(GameMessage(Event.reDraw));
-        break;
+        String trialName = base + ' ' + trialInt.toString();
 
-      case Server.finished:
-        gameState = GameState.finished;
-        break;
+        while(players.containsPlayerWithDisplayName(trialName)){
+            trialInt ++;
+            trialName = base + ' ' + trialInt.toString();
 
-      case Server.none:
-        gameState = GameState.none;
-        break;
+        }
+        p.displayName = trialName;
+      }
 
-      case Server.paused:
-        gameState = GameState.paused;
-        break;
 
-      case Server.started:
-        gameState = GameState.started;
-        break;
-
-      case Server.waitingForAllReady:
-        gameState = GameState.waitingForAllReady;
-        break;
+    });
 
 
     }
 
-  }
 
 
 
-  go(String id){
-    currentUser = id;
-    inputOpen = true;
-  }
 
-  setUpNewGame() async{
+  removeLocalPlayer(Player player) => players.remove(player);
 
-    if(users.isEmpty) users.add(
-        User.getDefault()
-    );
+  startLocalGame(){
 
+    NewGame newGame = NewGame()
+        ..players = players
+        ..numberOfPlayers = players.length
+        ..gameTime = settings.gameTime
+        ..moveTime = settings.moveTime
+        ..timer = settings.timer
+        ..playerHelp = settings.playerHelp;
 
-    //TODO start the game and initialise computers
+    game = getGame(newGame);
+    game.initialise();
   }
 
   redraw(){
@@ -110,6 +95,8 @@ abstract class Interface{
     events.close();
     changeScreen.close();
   }
+
+
 
 
 }

@@ -1,8 +1,8 @@
 
 
+import 'package:boardgame/boardgame.dart';
 import 'package:boardgame/src/player.dart';
-import 'package:boardgame/src/server/http_server.dart';
-import 'package:boardgame/src/server/server.dart';
+
 import 'package:boardgame/src/settings.dart';
 import 'package:test/test.dart';
 
@@ -17,13 +17,24 @@ void main() {
     });
 
     test('Start a game against three computers ', () async {
-      await ui.setUpNewGame();
+      ui.addLocalPlayer(ComputerPlayer());
+      expect(ui.players.listAllNames(), ['Player 1', 'Computer 1']);
 
+      ui.addLocalPlayer(Player());
+      expect(ui.players.listAllNames(), ['Player 1', 'Computer 1', 'Player 2']);
+
+      ui.addLocalPlayer(ComputerPlayer());
+      expect(ui.players.listAllNames(), ['Player 1', 'Computer 1', 'Player 2', 'Computer 2']);
+
+      ui.startLocalGame();
+      expect(ui.game.players.length, 4);
+      expect(ui.game.players.listAllNames(), ['Player 1', 'Computer 1', 'Player 2', 'Computer 2']);
 
     });
 
     test('setting game state ', () async {
-      await ui.setUpNewGame();
+;
+
 
     });
   });
@@ -68,7 +79,7 @@ void main() {
 
   group('Search server ', (){
 
-    HttpGameServer server = HttpGameServer();
+
 
     test('Setting up basic server ', () async{
 
@@ -85,33 +96,33 @@ void main() {
 
 
 
-  group('Server tests ', (){
-
-    HttpGameServer gameServer = HttpGameServer();
-
-    TestInterface ui = TestInterface();
-
-    setUp(() async{
-     await gameServer.connectLocalhost();
-     await gameServer.clearPlayers();
-    });
-
-    test('Setting up basic server ', () async{
-
-       expect(await gameServer.postRequest(Server.apply + 'harry'), Server.apply + 'harry');
-       expect(await gameServer.postRequest(Server.apply + 'jane'), Server.apply + 'jane');
-       expect(await gameServer.postRequest(Server.getAllUsers), Server.getAllUsers + 'harry\njane\n');
-
-    });
-
-    tearDown(() async {
-     await  gameServer.tidyUp();
-    });
-
-
-  },
+//  group('Server tests ', (){
+//
+//    HttpGameServer gameServer = HttpGameServer();
+//
+//    TestInterface ui = TestInterface();
+//
+//    setUp(() async{
+//     await gameServer.connectLocalhost();
+//     await gameServer.clearPlayers();
+//    });
+//
+//    test('Setting up basic server ', () async{
+//
+//       expect(await gameServer.postRequest(Server.apply + 'harry'), Server.apply + 'harry');
+//       expect(await gameServer.postRequest(Server.apply + 'jane'), Server.apply + 'jane');
+//       expect(await gameServer.postRequest(Server.getAllUsers), Server.getAllUsers + 'harry\njane\n');
+//
+//    });
+//
+//    tearDown(() async {
+//     await  gameServer.tidyUp();
+//    });
+//
+//
+//  },
 //      skip: 'must have server working'
-  );
+//  );
 
 
 

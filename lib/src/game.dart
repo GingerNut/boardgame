@@ -1,6 +1,7 @@
 
 
 import 'package:boardgame/src/board.dart';
+import 'package:boardgame/src/command/new_game.dart';
 import 'package:boardgame/src/computer/computer_player.dart';
 import 'package:boardgame/src/move/move.dart';
 import 'package:boardgame/src/player.dart';
@@ -8,12 +9,11 @@ import 'package:boardgame/src/player_list.dart';
 import 'package:boardgame/src/position.dart';
 import 'package:boardgame/src/server/server.dart';
 
-import 'package:boardgame/src/settings.dart';
-
 abstract class Game {
-  final Settings settings;
 
-  GameState _state = GameState.none;
+  final NewGame settings;
+
+  GameState _state = GameState.waitingForPlayers;
   Server server;
 
   set state(GameState newState){
@@ -24,11 +24,10 @@ abstract class Game {
 
   Board board;
 
-  Game(this.settings, this.server);
-
+  Game(this.settings);
   int get numberOfPlayers => settings.numberOfPlayers;
   Position position;
-  PlayerList players;
+  PlayerList get players => settings.players;
   List<Move> history = new List();
 
   bool get gameOver => position.winner != null;
@@ -52,22 +51,9 @@ abstract class Game {
 
     position.initialise();
 
-    players = PlayerList(numberOfPlayers);
-
     for (int i = 0; i < numberOfPlayers; i ++) {
       for (int i = 0; i < numberOfPlayers; i ++) {
-        Player player;
-
-        switch (settings.playerType) {
-          case Player.human:
-            player = Player();
-            break;
-
-          case Player.computer:
-            player = ComputerPlayer();
-            break;
-
-        }
+        Player player = players[i];
 
         player.game = this;
         player.number = i;
@@ -85,6 +71,8 @@ abstract class Game {
     position.player.yourTurn(position);
 
     history.clear();
+
+    _state = GameState.waitingForAllReady;
   }
 
   getPosition(Position parent);

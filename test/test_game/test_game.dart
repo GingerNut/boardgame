@@ -1,5 +1,6 @@
 
 
+import 'package:boardgame/src/command/new_game.dart';
 import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/position.dart';
 import 'package:boardgame/src/server/server.dart';
@@ -13,7 +14,7 @@ import 'test_position.dart';
 
 class TestGame extends Game{
 
-  TestGame(Settings settings, Server server) : super(settings, server);
+  TestGame(NewGame settings) : super(settings);
 
   String get string => null;
 

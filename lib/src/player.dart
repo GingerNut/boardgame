@@ -17,6 +17,7 @@ class Player{
   String reasonOut;
   GameTimer timer;
   String id;
+  String displayName;
   Player nextPlayer;
 
   double get timeLeft => timer.timeLeft;
