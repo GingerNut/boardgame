@@ -6,6 +6,7 @@ import 'package:boardgame/src/player.dart';
 import 'package:boardgame/src/settings.dart';
 import 'package:test/test.dart';
 
+import 'test_game/move_fie.dart';
 import 'test_game/test_interface.dart';
 
 void main() {
@@ -31,6 +32,7 @@ void main() {
       expect(ui.game.players.listAllNames(), ['Player 1', 'Computer 1', 'Player 2', 'Computer 2']);
       expect(ui.game.id, 'local game');
 
+      ui.game.makeMove(MoveFie());
     });
 
     test('setting game state ', () async {

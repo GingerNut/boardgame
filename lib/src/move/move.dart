@@ -12,6 +12,8 @@ abstract class Move{
 
   String get string;
 
+  Move();
+
   Move.fromString(String string){
 
 

@@ -56,6 +56,14 @@ class Player{
     position.checkWin();
   }
 
+  out(){
+    Position position = game.position;
+
+    position.playerStatus[number] = PlayerStatus.out;
+    position.checkWin();
+
+  }
+
 }
 
 

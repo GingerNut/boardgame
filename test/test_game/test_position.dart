@@ -11,6 +11,10 @@ class TestPosition extends Position{
     number = 0;
   }
 
+  copyVariables(){
+    number = (parent as TestPosition).number;
+  }
+
 
   analyse() {
     number ++;
