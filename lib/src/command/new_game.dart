@@ -2,12 +2,12 @@
 
 
 import 'package:boardgame/src/command/command.dart';
-import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/game_host.dart';
 import 'package:boardgame/src/player_list.dart';
-import 'package:boardgame/src/server/server.dart';
+
 
 class NewGame extends Command{
-  Server server;
+  GameHost host;
   PlayerList players = new PlayerList();
   int numberOfPlayers;
   int playerType;

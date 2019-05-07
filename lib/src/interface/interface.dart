@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:boardgame/src/command/new_game.dart';
 import 'package:boardgame/src/computer/computer_player.dart';
 import 'package:boardgame/src/game.dart';
+import 'package:boardgame/src/game_host.dart';
 import 'package:boardgame/src/player.dart';
 import 'package:boardgame/src/player_list.dart';
 
@@ -13,7 +14,7 @@ import 'package:boardgame/src/server/server.dart';
 
 import 'package:boardgame/src/settings.dart';
 
-abstract class Interface{
+abstract class Interface extends GameHost{
 
   //TODO include bluetooth connectivity
 
@@ -76,6 +77,7 @@ abstract class Interface{
   startLocalGame(){
 
     NewGame newGame = NewGame()
+        ..host = this
         ..players = players
         ..numberOfPlayers = players.length
         ..gameTime = settings.gameTime

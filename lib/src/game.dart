@@ -3,6 +3,7 @@
 import 'package:boardgame/src/board.dart';
 import 'package:boardgame/src/command/new_game.dart';
 import 'package:boardgame/src/computer/computer_player.dart';
+import 'package:boardgame/src/game_host.dart';
 import 'package:boardgame/src/move/move.dart';
 import 'package:boardgame/src/player.dart';
 import 'package:boardgame/src/player_list.dart';
@@ -14,7 +15,6 @@ abstract class Game {
   final NewGame settings;
 
   GameState _state = GameState.waitingForPlayers;
-  Server server;
 
   set state(GameState newState){
     _state = newState;
