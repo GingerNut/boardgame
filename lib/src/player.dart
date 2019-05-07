@@ -5,6 +5,8 @@ import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/game_timer.dart';
 import 'package:boardgame/src/palette.dart';
 import 'package:boardgame/src/position.dart';
+import 'package:boardgame/src/response/response.dart';
+import 'package:boardgame/src/response/success.dart';
 
 class Player{
   static const int human = 0;
@@ -16,17 +18,25 @@ class Player{
   int color;
   String reasonOut;
   GameTimer timer;
-  String id;
+  String id = '?';
   String displayName;
   Player nextPlayer;
 
   double get timeLeft => timer.timeLeft;
   double score(Position position) => position.score[number];
 
+  Future<Response> getReady()async{
 
-  initialise(){
+    Response response = await initialise();
+
+    return response;
+  }
+
+  Future<Response> initialise()async{
     color = Palette.defaultPlayerColours[number];
     timer = GameTimer(this, game.settings.gameTime, moveTime: game.settings.moveTime);
+
+    return Success();
   }
 
 

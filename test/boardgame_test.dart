@@ -17,18 +17,19 @@ void main() {
     });
 
     test('Start a game against three computers ', () async {
-      ui.addLocalPlayer(ComputerPlayer());
+      await ui.addLocalPlayer(ComputerPlayer());
       expect(ui.players.listAllNames(), ['Player 1', 'Computer 1']);
 
-      ui.addLocalPlayer(Player());
+      await ui.addLocalPlayer(Player());
       expect(ui.players.listAllNames(), ['Player 1', 'Computer 1', 'Player 2']);
 
-      ui.addLocalPlayer(ComputerPlayer());
+      await ui.addLocalPlayer(ComputerPlayer());
       expect(ui.players.listAllNames(), ['Player 1', 'Computer 1', 'Player 2', 'Computer 2']);
 
       ui.startLocalGame();
       expect(ui.game.players.length, 4);
       expect(ui.game.players.listAllNames(), ['Player 1', 'Computer 1', 'Player 2', 'Computer 2']);
+      expect(ui.game.id, 'local game');
 
     });
 

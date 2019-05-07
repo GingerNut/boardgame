@@ -26,10 +26,9 @@ abstract class Position{
   initialise(){
     playerStatus = new List(game.settings.numberOfPlayers);
     score = new List(game.settings.numberOfPlayers);
-    setup();
   }
 
-  setup();
+  setupFirstPosition();
 
   analyse();
 

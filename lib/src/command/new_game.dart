@@ -8,6 +8,7 @@ import 'package:boardgame/src/player_list.dart';
 
 class NewGame extends Command{
   GameHost host;
+  String id;
   PlayerList players = new PlayerList();
   int numberOfPlayers;
   int playerType;

@@ -9,6 +9,9 @@ import 'package:boardgame/src/player.dart';
 import 'package:boardgame/src/player_list.dart';
 
 import 'package:boardgame/src/position.dart';
+import 'package:boardgame/src/response/game_error.dart';
+import 'package:boardgame/src/response/response.dart';
+import 'package:boardgame/src/response/success.dart';
 
 import 'package:boardgame/src/server/server.dart';
 
@@ -35,7 +38,9 @@ abstract class Interface extends GameHost{
   final StreamController<GameMessage> events = StreamController.broadcast();
   final StreamController<GameMessage> changeScreen = StreamController.broadcast();
 
-  addLocalPlayer(Player player) {
+  Future<Response> addLocalPlayer(Player player) async{
+
+    if(player.game != null ) return GameError.alreadyInGame(player.id, game.id);
 
     if(players.isEmpty) players.add(Player());
 
@@ -65,19 +70,18 @@ abstract class Interface extends GameHost{
 
     });
 
+        return Success.login(player.id);
 
     }
 
 
-
-
-
   removeLocalPlayer(Player player) => players.remove(player);
 
-  startLocalGame(){
+  startLocalGame()async {
 
     NewGame newGame = NewGame()
         ..host = this
+        ..id= 'local game'
         ..players = players
         ..numberOfPlayers = players.length
         ..gameTime = settings.gameTime
@@ -86,7 +90,7 @@ abstract class Interface extends GameHost{
         ..playerHelp = settings.playerHelp;
 
     game = getGame(newGame);
-    game.initialise();
+    await game.initialise();
   }
 
   redraw(){

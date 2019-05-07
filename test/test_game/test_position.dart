@@ -5,14 +5,15 @@ import 'package:boardgame/boardgame.dart';
 class TestPosition extends Position{
   TestPosition(Game game, Position parent) : super(game, parent);
 
+  int number;
 
-  setup() {
-
+  setupFirstPosition() {
+    number = 0;
   }
 
 
   analyse() {
-
+    number ++;
   }
 
   checkWin() {

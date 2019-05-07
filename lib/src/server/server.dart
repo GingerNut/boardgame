@@ -5,7 +5,6 @@ import 'package:boardgame/src/command/command.dart';
 import 'package:boardgame/src/command/new_game.dart';
 import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/game_host.dart';
-import 'package:boardgame/src/player.dart';
 import 'package:boardgame/src/player_list.dart';
 import 'package:boardgame/src/response/response.dart';
 import 'package:boardgame/src/server/player_database.dart';
