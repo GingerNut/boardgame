@@ -2,11 +2,15 @@
 
 import 'package:boardgame/boardgame.dart';
 import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/response/response.dart';
+import 'package:boardgame/src/response/success.dart';
 
 import 'package:boardgame/src/settings.dart';
 import 'package:test/test.dart';
 
 import 'test_game/move_fie.dart';
+import 'test_game/move_fo.dart';
+import 'test_game/move_number.dart';
 import 'test_game/test_interface.dart';
 
 void main() {
@@ -32,7 +36,25 @@ void main() {
       expect(ui.game.players.listAllNames(), ['Player 1', 'Computer 1', 'Player 2', 'Computer 2']);
       expect(ui.game.id, 'local game');
 
-      ui.game.makeMove(MoveFie());
+      expect(MoveFie().check(ui.game.position).runtimeType, Success().runtimeType);
+      ui.game.makeMove(MoveFie());  // out - move should be MoveNumber
+      expect(ui.players[0].status(ui.game.position), PlayerStatus.out);
+      ui.game.makeMove(MoveNumber());  // OK - move should be MoveNumber
+      expect(ui.players[1].status(ui.game.position), PlayerStatus.playing);
+      expect(ui.game.position.playersLeft, 3);
+      expect((ui.game.position.player.status(ui.game.position)), PlayerStatus.playing);
+      ui.game.makeMove(MoveFie());  // OK - move should be MoveNumber
+      expect(ui.game.position.playersLeft, 3);
+      expect((ui.game.position.player.status(ui.game.position)), PlayerStatus.playing);
+      ui.game.makeMove(MoveFo());  // OK - move should be MoveNumber
+      expect(ui.game.position.playersLeft, 2);
+      expect((ui.game.position.player.status(ui.game.position)), PlayerStatus.playing);
+      ui.game.makeMove(MoveFo());  // OK - move should be MoveNumber
+      expect(ui.game.position.playersLeft, 2);
+      expect((ui.game.position.player.status(ui.game.position)), PlayerStatus.playing);
+      ui.game.makeMove(MoveNumber());  // OK - move should be MoveNumber
+      expect(ui.game.position.playersLeft, 1);
+      expect(ui.game.gameOver, true);
     });
 
     test('setting game state ', () async {

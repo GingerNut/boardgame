@@ -24,6 +24,7 @@ class Player{
 
   double get timeLeft => timer.timeLeft;
   double score(Position position) => position.score[number];
+  PlayerStatus status(Position position) => position.playerStatus[number];
 
   Future<Response> getReady()async{
 
@@ -36,14 +37,17 @@ class Player{
     color = Palette.defaultPlayerColours[number];
     timer = GameTimer(this, game.settings.gameTime, moveTime: game.settings.moveTime);
 
+    if(game.id == 'local game') setStatus(game.position, PlayerStatus.ready);
+
     return Success();
   }
 
 
   yourTurn(Position position){
-
     
   }
+
+  setStatus(Position position, PlayerStatus status) => position.playerStatus[number] = status;
 
   wait(){
 
@@ -56,10 +60,10 @@ class Player{
     position.checkWin();
   }
 
-  out(){
-    Position position = game.position;
+  out(Position position){
 
     position.playerStatus[number] = PlayerStatus.out;
+
     position.checkWin();
 
   }
@@ -72,5 +76,6 @@ enum PlayerStatus{
   disconnected,
   out,
   waiting,
+  ready,
   playing
 }

@@ -2,6 +2,7 @@
 
 
 import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/position.dart';
 
 
 class PlayerList{
@@ -77,7 +78,69 @@ class PlayerList{
     return response;
   }
 
+  Player get first => _players.first;
+  Player get last => _players.last;
+
+  Player getPlayer(Position position){
+
+   Player next;
+    switch(position.parent.playerOrder){
+      case PlayerOrder.countUp:
+        next = _players[(position.parent.player.number + 1) % _players.length];
+        while(next.status(position) != PlayerStatus.playing){
+          next = _players[(next.number + 1) % _players.length];
+        }
+        break;
+      case PlayerOrder.countDown:
+        next = _players[(position.parent.player.number - 1) % _players.length];
+        while(next.status(position) != PlayerStatus.playing){
+          next = _players[(next.number - 1) % _players.length];
+        }
+        break;
+      case PlayerOrder.random:
+      // TODO: Handle this case.
+        break;
+      case PlayerOrder.firstToPlay:
+      // TODO: Handle this case.
+        break;
+      case PlayerOrder.highestScore:
+      // TODO: Handle this case.
+        break;
+      case PlayerOrder.lowersScore:
+      // TODO: Handle this case.
+        break;
+    }
+    return next;
+
+  }
+
+  PlayerList remainingPlayers(Position position){
+      PlayerList remain = PlayerList();
+
+      _players.forEach((p) => p.status(position) == PlayerStatus.playing ? remain.add(p) :  false);
+
+      return remain;
+  }
+
+  int playersLeft(Position position){
+
+    int remain = 0;;
+
+    _players.forEach((p) => p.status(position) == PlayerStatus.playing ? remain ++ :  false);
+
+    return remain;
+
+  }
 
 
 
+}
+
+enum PlayerOrder{
+  countUp,
+  countDown,
+  random,
+  firstToPlay,
+  highestScore,
+  lowersScore
 }

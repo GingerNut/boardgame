@@ -63,42 +63,39 @@ abstract class Game {
 
         player.game = this;
         player.number = i;
-        player.initialise();
-
-        players[i] = player;
-        position.playerStatus[i] = PlayerStatus.waiting;
       }
     }
 
-    position.analyse();
+    _state = GameState.waitingForAllReady;
 
-    position.player = players[0];
+    await waitForAllReady();
+
+    position.analyse();
 
     history.clear();
 
-    _state = GameState.waitingForAllReady;
+    _state = GameState.started;
 
     Response response = Success();
-    players.forEach((p) async{
-
-      Response playerRespnse = await p.getReady();
-
-      if (playerRespnse is GameError) response = GameError.playerOutOfTime(p.id);
-    });
-
-    if(response is GameError) return response;
-
-    _state = GameState.started;
 
     position.player.yourTurn(position);
 
     return response;
   }
 
+
+  Future<Response> waitForAllReady()async{
+
+
+    players.forEach((p) => p.setStatus(position, PlayerStatus.playing));
+    return Success();
+
+  }
+
   getPosition(Position parent);
 
   Response makeMove(Move move) {
-    Response response = move.checkLegal(position);
+    Response response = move.check(position);
 
     if(response is GameError) return response;
 
@@ -113,7 +110,7 @@ abstract class Game {
     if (gameOver) {
       history.add(move);
     } else {
-
+      position.player.yourTurn(position);
     }
     return Success();
   }

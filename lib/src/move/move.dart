@@ -3,10 +3,12 @@
 
 import 'package:boardgame/src/player.dart';
 import 'package:boardgame/src/position.dart';
+import 'package:boardgame/src/response/game_error.dart';
+import 'package:boardgame/src/response/response.dart';
+import 'package:boardgame/src/response/success.dart';
 
-abstract class Move{
+abstract class Move <T> {
   bool legal = false;
-  Position position;
   String error;
   Player player;
 
@@ -19,20 +21,23 @@ abstract class Move{
 
   }
 
-  String setup(Position position) =>'OK';
+  Response check(T position){
 
-  String move(Position position) => 'OK';
+    this.player = (position as Position).player;
 
-  checkLegal(Position position) {
-    this.position = position;
-    error = setup(position);
-    if(error == 'OK') legal = true;
+    return doCheck(position);
   }
 
-  String go(Position position) {
-    String error = setup(position);
-    if(error == 'OK') return move(position);
-    else return error;
+  Response doCheck(T position);
+
+  Response go(T position){
+
+      doMove(position);
+      return Success();
   }
+
+
+  doMove(T position);
+
 
 }

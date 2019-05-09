@@ -1,6 +1,7 @@
 
 
 import 'package:boardgame/boardgame.dart';
+import 'package:boardgame/src/player_list.dart';
 
 class TestPosition extends Position{
   TestPosition(Game game, Position parent) : super(game, parent);
@@ -8,20 +9,23 @@ class TestPosition extends Position{
   int number;
 
   setupFirstPosition() {
-    number = 0;
+    number = 1;
+    playerOrder = PlayerOrder.countUp;
+    player = game.players[0];
   }
 
   copyVariables(){
-    number = (parent as TestPosition).number;
+    number = (parent as TestPosition).number + 1;
   }
 
 
   analyse() {
-    number ++;
+
   }
 
   checkWin() {
-    print('checking for win in test position');
+    if(playersLeft == 1) winner = survivors.first;
+
   }
 
 

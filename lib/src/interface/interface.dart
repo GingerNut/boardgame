@@ -90,7 +90,9 @@ abstract class Interface extends GameHost{
         ..playerHelp = settings.playerHelp;
 
     game = getGame(newGame);
+
     await game.initialise();
+
   }
 
   redraw(){

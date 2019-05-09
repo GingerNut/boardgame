@@ -1,28 +1,31 @@
 
 
-import 'package:boardgame/src/move/move.dart';
-import 'package:boardgame/src/position.dart';
-
+import 'test_move.dart';
 import 'test_position.dart';
 
 // multiples of 3
 
-class MoveFie extends Move{
+class MoveFie extends TestMove{
   MoveFie.fromString(String string) : super.fromString(string);
 
-  MoveFie(){}
+  MoveFie() : super();
 
-  @override
-  // TODO: implement string
   String get string => null;
 
 
- go(Position position){
 
-  if((position as TestPosition).number % 3 != 0) player.out();
+  doMove(TestPosition position) {
+      bool moveOk = false;
 
-  return 'OK';
- }
+      int test = (position.parent as TestPosition).number;
+
+      if(test % 3 == 0 && test % 5 != 0) moveOk = true;
+
+      if(!moveOk) player.out(position);
+
+  }
+
+
 
 
 }
