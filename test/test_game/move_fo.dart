@@ -13,7 +13,7 @@ class MoveFo extends TestMove{
 
   MoveFo() : super();
 
-  String get string => null;
+  String get string => 'fo';
 
 
 

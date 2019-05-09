@@ -1,8 +1,6 @@
 
 
-import 'package:boardgame/src/move/move.dart';
 import 'package:boardgame/src/player.dart';
-import 'package:boardgame/src/response/response.dart';
 
 import 'test_move.dart';
 import 'test_position.dart';
@@ -12,10 +10,9 @@ import 'test_position.dart';
 class MoveFum extends TestMove{
   MoveFum.fromString(String string) : super.fromString(string);
 
+    MoveFum() : super ();
 
-
-  String get string => null;
-
+  String get string => 'fum';
 
   doMove(TestPosition position){
     bool moveOk = false;

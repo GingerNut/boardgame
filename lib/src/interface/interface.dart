@@ -77,7 +77,7 @@ abstract class Interface extends GameHost{
 
   removeLocalPlayer(Player player) => players.remove(player);
 
-  startLocalGame()async {
+  startLocalGame(){
 
     NewGame newGame = NewGame()
         ..host = this
@@ -91,8 +91,7 @@ abstract class Interface extends GameHost{
 
     game = getGame(newGame);
 
-    await game.initialise();
-
+    game.initialise();
   }
 
   redraw(){

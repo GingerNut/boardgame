@@ -13,7 +13,7 @@ class MoveNumber extends TestMove{
 
   MoveNumber() : super();
 
-  String get string => null;
+  String get string => 'num';
 
 
   Response doCheck(TestPosition position) {

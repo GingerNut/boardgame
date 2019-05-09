@@ -1,5 +1,8 @@
 
 
+import 'package:boardgame/boardgame.dart';
+import 'package:boardgame/src/response/response.dart';
+
 import 'test_move.dart';
 import 'test_position.dart';
 
@@ -10,7 +13,7 @@ class MoveFie extends TestMove{
 
   MoveFie() : super();
 
-  String get string => null;
+  String get string => 'fie';
 
 
 

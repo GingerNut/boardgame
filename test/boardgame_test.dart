@@ -10,8 +10,10 @@ import 'package:test/test.dart';
 
 import 'test_game/move_fie.dart';
 import 'test_game/move_fo.dart';
+import 'test_game/move_fum.dart';
 import 'test_game/move_number.dart';
 import 'test_game/test_interface.dart';
+import 'test_game/test_move.dart';
 
 void main() {
   group('Set up a new game', () {
@@ -57,8 +59,10 @@ void main() {
       expect(ui.game.gameOver, true);
     });
 
+
+
     test('setting game state ', () async {
-;
+
 
 
     });
@@ -91,6 +95,16 @@ void main() {
       expect(settings.gameTime, stringed.gameTime);
       expect(settings.moveTime, stringed.moveTime);
     });
+
+    test('Stinged moves', (){
+
+      expect(TestMove.getMove(MoveFie().string).runtimeType, MoveFie().runtimeType);
+      expect(TestMove.getMove(MoveFum().string).runtimeType, MoveFum().runtimeType);
+      expect(TestMove.getMove(MoveFo().string).runtimeType, MoveFo().runtimeType);
+      expect(TestMove.getMove(MoveNumber().string).runtimeType, MoveNumber().runtimeType);
+    });
+
+
   });
 
 

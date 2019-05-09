@@ -36,7 +36,6 @@ abstract class Move <T> {
       return Success();
   }
 
-
   doMove(T position);
 
 
