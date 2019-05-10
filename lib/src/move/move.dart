@@ -16,10 +16,7 @@ abstract class Move <T> {
 
   Move();
 
-  Move.fromString(String string){
-
-
-  }
+  Move.fromString(String string);
 
   Response check(T position){
 

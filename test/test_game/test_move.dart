@@ -2,6 +2,7 @@
 
 
 import 'package:boardgame/src/move/move.dart';
+import 'package:boardgame/src/move/move_factory.dart';
 import 'package:boardgame/src/response/response.dart';
 import 'package:boardgame/src/response/success.dart';
 
@@ -27,11 +28,19 @@ abstract class TestMove extends Move<TestPosition>{
       case 'fo' : return MoveFo();
       case 'fum' : return MoveFum();
       case 'num' : return MoveNumber();
-
     }
-
     return null;
+  }
+
+}
+
+class TestMoveFactory extends MoveFactory<TestMove>{
+
+  TestMove createMove(String string) {
 
   }
+
+
+
 
 }

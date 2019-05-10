@@ -4,35 +4,16 @@
 import 'package:boardgame/src/command/new_game.dart';
 import 'package:boardgame/src/response/response.dart';
 
+import 'create_move.dart';
+
 
 abstract class Command{
   static const String newGame = 'new';
+  static const String move = 'mov';
 
   bool good = true;
 
-  static Translation translate(String string){
 
-    String type = string.substring(0,2);
-    String content = string.substring(2);
-
-    Translation translation;
-    Command command;
-
-    switch (string.substring(0,2)){
-
-      case newGame:
-
-        command = NewGame.fromString(content);
-        translation = command.good ? Translation.bad() : Translation(command);
-        break;
-
-
-
-    }
-
-
-    return translation;
-  }
 
 
 
@@ -43,16 +24,3 @@ abstract class Command{
 }
 
 
-class Translation extends Response{
-
-  String response;
-  Command command;
-
-  Translation.bad(){
-    response = 'unknown command';
-  }
-
-  Translation(this.command);
-
-
-}

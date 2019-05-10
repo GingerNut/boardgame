@@ -87,7 +87,7 @@ abstract class Interface extends GameHost{
         ..gameTime = settings.gameTime
         ..moveTime = settings.moveTime
         ..timer = settings.timer
-        ..playerHelp = settings.playerHelp;
+        ..playerHelp = false;
 
     game = getGame(newGame);
 

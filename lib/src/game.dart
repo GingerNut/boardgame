@@ -33,6 +33,7 @@ abstract class Game {
   Position position;
   PlayerList get players => settings.players;
   String get id => settings.id;
+  String get displayName => settings.displayName;
 
   List<Move> history = new List();
 
