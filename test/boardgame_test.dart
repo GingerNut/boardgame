@@ -126,8 +126,16 @@ void main() {
 
 
     test('Setting up game on a server ', () async{
-
       TestServer server = TestServer();
+
+      server.login('henry');
+      server.login('james');
+      server.login('emma');
+      server.login('geoff');
+      server.login('ahmed');
+
+      expect(server.playerQueue.length, 5);
+
       NewGame newGame = NewGame()
         ..numberOfPlayers = 4
         ..gameTime = 300
@@ -144,10 +152,26 @@ void main() {
       expect(server.adverts.length,1);
       NewGame advert = server.adverts[0];
 
+      await advert.requestJoin('henry');
+      expect(advert.players.length, 1);
 
+      await advert.requestJoin('james');
+      expect(advert.players.length, 2);
 
+      await advert.requestJoin('james');
+      expect(advert.players.length, 2);
 
+      await advert.requestJoin('emma');
+      expect(advert.players.length, 3);
 
+      expect(advert.full, false);
+
+      await advert.requestJoin('geoff');
+      expect(advert.players.length, 4);
+      expect(advert.full, true);
+
+      expect(server.games.length, 1);
+      expect(server.adverts.length , 0);
 
 
     });

@@ -1,11 +1,13 @@
 
 
-
-import 'dart:math';
-
 import 'package:boardgame/src/command/command.dart';
 import 'package:boardgame/src/game_host.dart';
+import 'package:boardgame/src/player.dart';
 import 'package:boardgame/src/player_list.dart';
+import 'package:boardgame/src/response/game_error.dart';
+import 'package:boardgame/src/response/response.dart';
+import 'package:boardgame/src/response/success.dart';
+import 'package:boardgame/src/server/server.dart';
 
 
 class NewGame extends Command{
@@ -27,6 +29,19 @@ class NewGame extends Command{
     if(full) return;
 
     players.add(players.getPlayerWithId(id));
+  }
+
+  Future<Response> requestJoin(String playerId) async{
+
+    Player player = (host as Server).playerQueue.getPlayerWithId(playerId);
+
+    if(player == null) return GameError.playerNotFound();
+
+    if(players.contains(playerId)) return GameError.alreadyInGame(playerId, id);
+    
+    players.add(player);
+
+    return Success();
   }
 
 

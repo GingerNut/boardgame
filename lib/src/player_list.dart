@@ -24,6 +24,12 @@ class PlayerList{
   bool get isEmpty => _players.isEmpty;
   int get length  => _players.length;
 
+  bool contains(String id) {
+    Player player = getPlayerWithId(id);
+    if(player == null) return false;
+    else return true;
+  }
+
   clear() => _players.clear();
   forEach(Function(Player player) function) => _players.forEach(function);
 

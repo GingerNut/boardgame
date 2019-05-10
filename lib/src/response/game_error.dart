@@ -12,4 +12,8 @@ class GameError extends Response{
 
   GameError.playerOutOfTime(String playerId);
 
+  GameError. gameNotFound();
+
+  GameError.playerNotFound();
+
 }

@@ -11,6 +11,7 @@ import 'package:boardgame/src/game_host.dart';
 import 'package:boardgame/src/game_list.dart';
 import 'package:boardgame/src/move/move.dart';
 import 'package:boardgame/src/move/move_factory.dart';
+import 'package:boardgame/src/player.dart';
 import 'package:boardgame/src/player_list.dart';
 import 'package:boardgame/src/response/game_error.dart';
 import 'package:boardgame/src/response/response.dart';
@@ -48,7 +49,24 @@ abstract class Server extends GameHost{
       case Command.newGame:
         NewGame settings = NewGame.fromString(details);
         settings.id = randomGameId();
+        settings.host = this;
         adverts.add(settings);
+        break;
+
+      case Command.joinGame:
+        NewGame newGame = adverts.singleWhere((g) => g.id == details);
+        if(newGame == null)return GameError.gameNotFound();
+        Response response = await newGame.requestJoin(details);
+        if(response is GameError) return response;
+        print('rt');
+        if(newGame.full) {
+          print('here');
+          Game game = getGame(newGame);
+          _games.add(game);
+          adverts.remove(newGame);
+          await game.initialise();
+        }
+
         break;
 
       case Command.move:
@@ -70,6 +88,14 @@ abstract class Server extends GameHost{
     return Success();
   }
 
+  Response login(String id){
+
+    Player player = new Player()
+        ..id = id;
+
+    playerQueue.add(player);
+    return Success();
+  }
 
   String randomGameId(){
 

@@ -10,6 +10,7 @@ import 'create_move.dart';
 abstract class Command{
   static const String newGame = 'new';
   static const String move = 'mov';
+  static const String joinGame = 'joi';
 
   bool good = true;
 
