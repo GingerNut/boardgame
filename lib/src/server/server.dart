@@ -6,6 +6,7 @@ import 'dart:math';
 import 'package:boardgame/src/command/command.dart';
 
 import 'package:boardgame/src/command/new_game.dart';
+import 'package:boardgame/src/database/database.dart';
 import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/game_host.dart';
 import 'package:boardgame/src/game_list.dart';
@@ -16,9 +17,11 @@ import 'package:boardgame/src/player_list.dart';
 import 'package:boardgame/src/response/game_error.dart';
 import 'package:boardgame/src/response/response.dart';
 import 'package:boardgame/src/response/success.dart';
-import 'package:boardgame/src/server/player_database.dart';
+
 
 abstract class Server extends GameHost{
+
+  Database db = Database();
 
   Server(){
 
@@ -26,7 +29,6 @@ abstract class Server extends GameHost{
 
   }
 
-  PlayerDatabase database = PlayerDatabase();
   Random random = Random();
   PlayerList playerQueue = PlayerList();
 
