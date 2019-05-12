@@ -28,6 +28,14 @@ class TestPosition extends Position{
 
   }
 
+  String toString(){
+    String string = '';
+
+//TODO stringify a position
+
+
+  }
+
 
 
 

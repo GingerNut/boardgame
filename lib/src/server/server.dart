@@ -39,7 +39,8 @@ abstract class Server extends GameHost{
 
   getMoveFactory();
 
-  List<String> get games => _games.listAllGames();
+    List<String> get gameIds => _games.listAllGames();
+
 
   Game getGame(NewGame newGame);
 
@@ -73,6 +74,7 @@ abstract class Server extends GameHost{
         break;
 
       case Command.startGame:
+
         List<String> _d = details.split(Command.delimiter);
 
         String _gameId = _d[0];
@@ -90,25 +92,41 @@ abstract class Server extends GameHost{
         adverts.remove(advert);
 
         Player player = await playerQueue.getPlayerWithId(_playerId);
-
         if(player == null) return GameError.playerNotFound();
-
         if(player.secret != _token) return GameError.badCommand('player secret not corrent');
 
         Game _game = getGame(advert);
 
-          await _game.initialise();
+        await _game.initialise();
 
         _games.add(_game);
 
         return Success();
 
-      case Command.move:
-        Move move = moveFactory.createMove(details);
-        if(move == null) return GameError.badMove(details);
-        //Game game = _games.getGameWithId(id);
 
-        break;
+      case Command.move:
+        List<String> _d = details.split(Command.delimiter);
+
+        String _gameId = _d[0];
+        String _moveType = _d[1];
+        String _playerId = _d[2];
+        String _token = _d[3];
+
+        Game game = await _games.getGameWithId(_gameId);
+        if(game == null) return GameError.gameNotFound();
+
+        Player player = await playerQueue.getPlayerWithId(_playerId);
+        if(player == null) return GameError.playerNotFound();
+        if(player.secret != _token) return GameError.badCommand('player secret not corrent');
+
+        if(game.position.player.id != player.id) return GameError.playerNotFound();
+
+        Move move = moveFactory.createMove(_moveType);
+        if(move == null) return GameError.badMove(details);
+        
+        game.makeMove(move);
+
+        return Success();
 
 
       default:

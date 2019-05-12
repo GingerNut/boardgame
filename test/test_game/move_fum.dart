@@ -8,11 +8,12 @@ import 'test_position.dart';
 // multiples of 3 and 5
 
 class MoveFum extends TestMove{
+  static const String type ='fum';
   MoveFum.fromString(String string) : super.fromString(string);
 
     MoveFum() : super ();
 
-  String get string => 'fum';
+  String toString() => type;
 
   doMove(TestPosition position){
     bool moveOk = false;

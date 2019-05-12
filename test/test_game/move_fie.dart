@@ -1,7 +1,5 @@
 
 
-import 'package:boardgame/boardgame.dart';
-import 'package:boardgame/src/response/response.dart';
 
 import 'test_move.dart';
 import 'test_position.dart';
@@ -9,11 +7,13 @@ import 'test_position.dart';
 // multiples of 3
 
 class MoveFie extends TestMove{
+  static const String type ='fie';
+
   MoveFie.fromString(String string) : super.fromString(string);
 
   MoveFie() : super();
 
-  String get string => 'fie';
+  String toString() => type;
 
 
 

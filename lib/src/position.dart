@@ -19,6 +19,8 @@ abstract class Position{
   int get playersLeft => players.playersLeft(this);
   PlayerList get survivors => players.remainingPlayers(this);
 
+  String toString();
+
   Player get player{
     if(parent == null) return _player;
 

@@ -3,7 +3,7 @@
 
 import 'package:boardgame/src/move/move.dart';
 import 'package:boardgame/src/move/move_factory.dart';
-import 'package:boardgame/src/response/response.dart';
+
 import 'package:boardgame/src/response/success.dart';
 
 import 'move_fie.dart';
@@ -37,6 +37,23 @@ abstract class TestMove extends Move<TestPosition>{
 class TestMoveFactory extends MoveFactory<TestMove>{
 
   TestMove createMove(String string) {
+
+    switch(string){
+    case MoveFie.type:
+      return MoveFie();
+
+      case MoveFo.type:
+        return MoveFo();
+
+      case MoveFum.type:
+        return MoveFum();
+
+      case MoveNumber.type:
+        return MoveNumber();
+
+      default:
+        return null;
+    }
 
   }
 

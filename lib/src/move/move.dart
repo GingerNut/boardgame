@@ -12,8 +12,6 @@ abstract class Move <T> {
   String error;
   Player player;
 
-  String get string;
-
   Move();
 
   Move.fromString(String string);

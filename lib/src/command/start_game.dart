@@ -1,6 +1,7 @@
 import 'package:boardgame/src/command/command.dart';
 
-class StartGame{
+
+class StartGame {
 
   final String gameId;
   final String playerId;
@@ -9,8 +10,11 @@ class StartGame{
   StartGame(this.gameId, this.playerId, this.playerToken);
 
   @override
-  String toString() => Command.startGame
-      + gameId + Command.delimiter
-      + playerId + Command.delimiter
-      + playerToken;
+  String toString() =>
+      Command.startGame
+          + gameId + Command.delimiter
+          + playerId + Command.delimiter
+          + playerToken;
+
+
 }

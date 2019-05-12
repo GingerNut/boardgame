@@ -3,6 +3,7 @@
 import 'package:boardgame/boardgame.dart';
 import 'package:boardgame/src/command/command.dart';
 import 'package:boardgame/src/command/join_game.dart';
+import 'package:boardgame/src/command/make_move.dart';
 import 'package:boardgame/src/command/new_game.dart';
 import 'package:boardgame/src/command/start_game.dart';
 import 'package:boardgame/src/database/record.dart';
@@ -146,10 +147,10 @@ void main() {
 
     test('Stinged moves', (){
 
-      expect(TestMove.getMove(MoveFie().string).runtimeType, MoveFie);
-      expect(TestMove.getMove(MoveFum().string).runtimeType, MoveFum);
-      expect(TestMove.getMove(MoveFo().string).runtimeType, MoveFo);
-      expect(TestMove.getMove(MoveNumber().string).runtimeType, MoveNumber);
+      expect(TestMove.getMove(MoveFie().toString()).runtimeType, MoveFie);
+      expect(TestMove.getMove(MoveFum().toString()).runtimeType, MoveFum);
+      expect(TestMove.getMove(MoveFo().toString()).runtimeType, MoveFo);
+      expect(TestMove.getMove(MoveNumber().toString()).runtimeType, MoveNumber);
     });
 
 
@@ -255,7 +256,7 @@ void main() {
 
       String instructions = '';
       instructions += Command.newGame;
-      instructions += newGame.string;
+      instructions += newGame.toString();
 
       await server.handle(instructions);
 
@@ -300,7 +301,7 @@ void main() {
 
       String instructions = '';
       instructions += Command.newGame;
-      instructions += newGame.string;
+      instructions += newGame.toString();
 
       await server.handle(instructions);
 
@@ -327,12 +328,18 @@ void main() {
       expect(advert.players.length, 4);
       expect(advert.full, true);
 
-      await  server.handle(StartGame(gameId, 'sarah', sarah_token).toString());
+      await server.handle(StartGame(gameId, 'sarah', sarah_token).toString());
 
-      expect(server.games.length, 1);
-      expect(server.adverts.length , 0);
+      expect(await server.gameIds.length, 1);
+      expect(await server.adverts.length , 0);
+
+      expect(await server.gameIds[0], gameId);
+
+      MakeMove move = MakeMove(gameId, MoveNumber().toString(), 'henry', henry_token);
       
-      expect(await server.games[0], gameId);
+      expect(await server.handle(move.toString()), Success());
+
+
 
     });
 

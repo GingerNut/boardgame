@@ -58,7 +58,7 @@ class NewGame extends Command{
     this.gameTime = double.parse(detailList[4]);
   }
 
-  String get string {
+  String toString() {
 
     String string = '';
     string += displayName;

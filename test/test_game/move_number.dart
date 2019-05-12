@@ -9,11 +9,12 @@ import 'test_position.dart';
 // multiples of 3
 
 class MoveNumber extends TestMove{
+  static const String type ='num';
   MoveNumber.fromString(String string) : super.fromString(string);
 
   MoveNumber() : super();
 
-  String get string => 'num';
+  String toString() => type;
 
 
   Response doCheck(TestPosition position) {

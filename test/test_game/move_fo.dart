@@ -9,11 +9,12 @@ import 'test_position.dart';
 // multiples of 5
 
 class MoveFo extends TestMove{
+  static const String type ='fo';
   MoveFo.fromString(String string) : super.fromString(string);
 
   MoveFo() : super();
 
-  String get string => 'fo';
+  String toString() => type;
 
 
 
