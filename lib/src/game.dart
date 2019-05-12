@@ -64,6 +64,8 @@ abstract class Game {
 
         player.game = this;
         player.number = i;
+        player.gameId = settings.id;
+        player.playerStatus = PlayerStatus.playing;
       }
     }
 

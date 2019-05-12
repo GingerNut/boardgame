@@ -2,23 +2,50 @@
 
 
 import 'package:boardgame/src/database/record.dart';
+import 'package:boardgame/src/response/response.dart';
+import 'package:boardgame/src/response/success.dart';
 
 class Database{
 
-  addRecord(Record record){}
+  List<Record> _records = new List();
 
-  Record getRecordWithId(String id){
+  Future<Response> addRecord(Record record) async{
 
+    _records.add(record);
+
+    return Success();
+  }
+
+  Future<Record> getRecordWithId(String string) async{
+
+    Record record;
+
+    _records.forEach((r) {
+      if(r.id == string) record = r;
+    });
+
+    return record;
+  }
+
+  Future<Record> getRecordWithDisplayName(String string)async{
+    Record record;
+
+    _records.forEach((r) {
+      if(r.displayName == string) record = r;
+    });
+
+    return record;
 
   }
 
-  Record getRecordWithDisplayName(String id){
+  Future<Record> getRecordWithEmail(String string)async{
+    Record record;
 
+    _records.forEach((r) {
+      if(r.email == string) record = r;
+    });
 
-  }
-
-  Record getRecordWithEmail(String id){
-
+    return record;
 
   }
 

@@ -2,7 +2,6 @@ import 'dart:io';
 
 class Record{
 
-
   String id;
   String displayName;
   String email;

@@ -4,6 +4,10 @@ import 'package:boardgame/src/response/response.dart';
 
 class GameError extends Response{
 
+  String error = '';
+
+  bool operator ==(other) => other is GameError && error == other.error;
+
   String string;
 
   GameError.alreadyInGame(String playerId, String gameId);
@@ -15,5 +19,9 @@ class GameError extends Response{
   GameError. gameNotFound();
 
   GameError.playerNotFound();
+
+  GameError.alreadyLoggedIn(String id);
+
+  GameError.badCommand(this.error);
 
 }

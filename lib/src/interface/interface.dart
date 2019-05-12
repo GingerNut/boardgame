@@ -26,6 +26,7 @@ abstract class Interface extends GameHost{
 
   Game getGame(NewGame details);
   Server getServer();
+  Server server;
 
   GameState gameState = GameState.none;
 

@@ -19,8 +19,10 @@ class Player{
   String reasonOut;
   GameTimer timer;
   String id = '?';
+  String secret;
   String displayName;
-  Player nextPlayer;
+  String gameId;
+  PlayerStatus playerStatus = PlayerStatus.waiting;
 
   double get timeLeft => timer.timeLeft;
   double score(Position position) => position.score[number];

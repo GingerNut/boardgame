@@ -19,7 +19,10 @@ class PlayerList{
   operator [](int i) => _players[i];
   operator []=(int i, Player value) => _players[i] = value;
 
-  add(Player player) => _players.add(player);
+  add(Player player) {
+    //if(containsPlayerId(player.id)) return;
+    _players.add(player);
+  }
   remove(Player player) =>  _players.remove(player);
   bool get isEmpty => _players.isEmpty;
   int get length  => _players.length;
@@ -45,12 +48,24 @@ class PlayerList{
 
   }
 
-  containsPlayerWithDisplayName(String string){;
+  containsPlayerWithDisplayName(String string){
 
     bool containsPlayer = false;
 
     _players.forEach((p) {
       if(p.displayName == string) containsPlayer = true;
+    });
+
+    return containsPlayer;
+
+  }
+
+  containsPlayerId(String string){
+
+    bool containsPlayer = false;
+
+    _players.forEach((p) {
+      if(p.id == string) containsPlayer = true;
     });
 
     return containsPlayer;

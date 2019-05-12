@@ -31,11 +31,13 @@ class NewGame extends Command{
     players.add(players.getPlayerWithId(id));
   }
 
-  Future<Response> requestJoin(String playerId) async{
+  Future<Response> requestJoin(String playerId, String token) async{
 
     Player player = (host as Server).playerQueue.getPlayerWithId(playerId);
 
     if(player == null) return GameError.playerNotFound();
+
+    if(player.secret != token) return GameError.playerNotFound();
 
     if(players.contains(playerId)) return GameError.alreadyInGame(playerId, id);
     
@@ -60,15 +62,15 @@ class NewGame extends Command{
 
     String string = '';
     string += displayName;
-    string += '\n';
+    string += Command.delimiter;
     string += numberOfPlayers.toString();
-    string += '\n';
+    string += Command.delimiter;
     string += timer ? 'TRUE' : 'FALSE';
-    string += '\n';
+    string += Command.delimiter;
     string += moveTime.toString();
-    string += '\n';
+    string += Command.delimiter;
     string += gameTime.toString();
-    string += '\n';
+    string += Command.delimiter;
 
     return string;
   }
