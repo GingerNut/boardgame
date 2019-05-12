@@ -234,11 +234,11 @@ void main() {
       LoginToken emma_token_login  =  await server.login('emma', 'e1234');
       LoginToken trace_token_login  =  await server.login('trace', 't1234');
 
-      henry_token =  henry_token_login.token;
-      james_token =  james_token_login.token;
-      sarah_token =  sarah_token_login.token;
-      emma_token =  emma_token_login.token;
-      trace_token =  trace_token_login.token;
+      henry_token =  henry_token_login.playerSecret;
+      james_token =  james_token_login.playerSecret;
+      sarah_token =  sarah_token_login.playerSecret;
+      emma_token =  emma_token_login.playerSecret;
+      trace_token =  trace_token_login.playerSecret;
 
 
     });
