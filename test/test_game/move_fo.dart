@@ -10,9 +10,6 @@ import 'test_position.dart';
 
 class MoveFo extends TestMove{
   static const String type ='fo';
-  MoveFo.fromString(String string) : super.fromString(string);
-
-  MoveFo() : super();
 
   String toString() => type;
 

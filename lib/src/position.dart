@@ -9,6 +9,7 @@ import 'package:boardgame/src/player_list.dart';
 abstract class Position{
 
   final Game game;
+  Move lastMove;
 
   PlayerList get players => game.players;
   int get playersLeft => players.playersLeft(this);
@@ -26,6 +27,7 @@ abstract class Position{
 
   makeMove(Move move){
     move.go(this);
+    lastMove = move;
   }
 
   setNextPlayer(){

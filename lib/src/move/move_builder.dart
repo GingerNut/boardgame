@@ -1,6 +1,6 @@
 abstract class MoveBuilder{
 
-    buildMove(String string);
+    build(String string);
 
 
 

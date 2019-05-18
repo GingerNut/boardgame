@@ -9,12 +9,12 @@ class MakeMove extends Command{
   final String playerId;
   final String token;
 
-  MakeMove(this.gameId, this.move, this.playerId, this.token);
+  MakeMove(this.gameId, this.playerId, this.token, this.move);
 
   String toString() => Command.move
       + gameId + Command.delimiter
-      + move.toString() + Command.delimiter
       + playerId + Command.delimiter
-      + token + Command.delimiter;
+      + token + Command.delimiter
+      + move.toString() + Command.delimiter;
 
 }

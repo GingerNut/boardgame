@@ -10,9 +10,6 @@ import 'test_position.dart';
 
 class MoveNumber extends TestMove{
   static const String type ='num';
-  MoveNumber.fromString(String string) : super.fromString(string);
-
-  MoveNumber() : super();
 
   String toString() => type;
 

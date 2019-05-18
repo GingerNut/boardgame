@@ -13,15 +13,10 @@ import 'move_number.dart';
 import 'test_position.dart';
 
 abstract class TestMove extends Move<TestPosition>{
-  TestMove.fromString(String string) : super.fromString(string);
-
-  TestMove() : super();
 
   doCheck(TestPosition position) => Success();
 
   doMove(TestPosition position);
-
-
 
 }
 

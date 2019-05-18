@@ -11,10 +11,6 @@ import 'test_position.dart';
 class MoveFie extends TestMove{
   static const String type ='fie';
 
-  MoveFie.fromString(String string) : super.fromString(string);
-
-  MoveFie() : super();
-
   String toString() => type;
 
 

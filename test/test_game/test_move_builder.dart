@@ -7,7 +7,7 @@ import 'move_number.dart';
 
 class TestMoveBuilder extends MoveBuilder{
 
-  buildMove(String string) {
+  build(String string) {
 
     switch(string){
       case 'fie' : return MoveFie();

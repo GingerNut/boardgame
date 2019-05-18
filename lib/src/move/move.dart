@@ -10,9 +10,6 @@ abstract class Move <P>{
   bool legal = false;
   String error;
 
-  Move();
-
-  Move.fromString(String string);
 
   Response check(P position){
 

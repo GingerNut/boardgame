@@ -108,9 +108,9 @@ abstract class Server extends GameHost{
         List<String> _d = details.split(Command.delimiter);
 
         String _gameId = _d[0];
-        String _moveType = _d[1];
-        String _playerId = _d[2];
-        String _token = _d[3];
+        String _playerId = _d[1];
+        String _token = _d[2];
+        String _moveDetails = _d[3];
 
         Game game = await _games.getGameWithId(_gameId);
         if(game == null) return GameError.gameNotFound();
@@ -121,7 +121,7 @@ abstract class Server extends GameHost{
 
         if(game.position.player.id != player.id) return GameError.playerNotFound();
 
-        Move move = moveBuilder.buildMove(_moveType);
+        Move move = moveBuilder.build(_moveDetails);
         if(move == null) return GameError.badMove(details);
         
         game.makeMove(move);

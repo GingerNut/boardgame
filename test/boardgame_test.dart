@@ -23,6 +23,7 @@ import 'test_game/move_number.dart';
 import 'test_game/test_interface.dart';
 import 'test_game/test_move.dart';
 import 'test_game/test_move_builder.dart';
+import 'test_game/test_position.dart';
 import 'test_game/test_server.dart';
 
 void main() {
@@ -119,6 +120,8 @@ void main() {
   });
 
   group('Settings tests ', () {
+
+
     test('Stingify ', () {
       Settings settings = Settings();
       Settings stringed = Settings.fromString(settings.string);
@@ -150,10 +153,20 @@ void main() {
 
       TestMoveBuilder builder = TestMoveBuilder();
 
-      expect(builder.buildMove(MoveFie().toString()).runtimeType, MoveFie);
-      expect(builder.buildMove(MoveFum().toString()).runtimeType, MoveFum);
-      expect(builder.buildMove(MoveFo().toString()).runtimeType, MoveFo);
-      expect(builder.buildMove(MoveNumber().toString()).runtimeType, MoveNumber);
+      expect(builder.build(MoveFie().toString()).runtimeType, MoveFie);
+      expect(builder.build(MoveFum().toString()).runtimeType, MoveFum);
+      expect(builder.build(MoveFo().toString()).runtimeType, MoveFo);
+      expect(builder.build(MoveNumber().toString()).runtimeType, MoveNumber);
+    });
+
+    test('Stinged position', ()async{
+
+
+
+
+
+
+
     });
 
 
@@ -338,7 +351,7 @@ void main() {
 
       expect(await server.gameIds[0], gameId);
 
-      MakeMove move = MakeMove(gameId, MoveNumber().toString(), 'henry', henry_token);
+      MakeMove move = MakeMove(gameId, 'henry', henry_token, MoveNumber().toString(), );
       
       expect(await server.handle(move.toString()), Success());
 
