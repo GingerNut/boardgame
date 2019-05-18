@@ -15,7 +15,14 @@ abstract class Position{
   int get playersLeft => players.playersLeft(this);
   PlayerList get survivors => players.remainingPlayers(this);
 
-  String toString();
+  String toString(){
+
+    String string = '';
+
+    
+
+    return string;
+  }
 
   Player player;
 

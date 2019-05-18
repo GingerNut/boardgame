@@ -17,6 +17,8 @@ import 'package:boardgame/src/server/server.dart';
 
 import 'package:boardgame/src/settings.dart';
 
+import 'local_player.dart';
+
 abstract class Interface extends GameHost{
 
   //TODO include bluetooth connectivity
@@ -44,7 +46,7 @@ abstract class Interface extends GameHost{
 
     if(player.game != null ) return GameError.alreadyInGame(player.id, game.id);
 
-    if(players.isEmpty) players.add(Player());
+    if(players.isEmpty) players.add(LocalPlayer());
 
     if(players.length < settings.numberOfPlayers) players.add(player);
 

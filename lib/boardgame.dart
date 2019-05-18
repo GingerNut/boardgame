@@ -9,7 +9,7 @@ export 'src/position.dart';
 export 'package:boardgame/src/interface/player.dart';
 export 'src/move/move.dart';
 export 'src/settings.dart';
-export 'src/internet/internet_player.dart';
+export 'package:boardgame/src/server/internet_player.dart';
 export 'src/computer/computer_player.dart';
 export 'src/palette.dart';
 export 'src/interface/interface.dart';

@@ -2,6 +2,7 @@
 
 
 import 'package:boardgame/src/game.dart';
+import 'package:boardgame/src/game_host.dart';
 import 'package:boardgame/src/game_timer.dart';
 import 'package:boardgame/src/palette.dart';
 import 'package:boardgame/src/position.dart';
@@ -13,6 +14,7 @@ class Player{
   static const int computer = 1;
   static const int internet = 2;
 
+  GameHost host;
   Game game;
   int number;
   int color;
@@ -48,6 +50,8 @@ class Player{
   yourTurn(Position position){
     
   }
+
+  sendMessage(String string){}
 
   wait(){
 

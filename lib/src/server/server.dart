@@ -1,6 +1,7 @@
 
 
 
+import 'dart:io';
 import 'dart:math';
 
 import 'package:boardgame/src/command/command.dart';
@@ -18,6 +19,7 @@ import 'package:boardgame/src/response/game_error.dart';
 import 'package:boardgame/src/response/login_token.dart';
 import 'package:boardgame/src/response/response.dart';
 import 'package:boardgame/src/response/success.dart';
+import 'package:boardgame/src/server/internet_player.dart';
 
 
 abstract class Server extends GameHost{
@@ -46,6 +48,8 @@ abstract class Server extends GameHost{
 
   Future<Response> handle(String string) async{
 
+    Response response;
+
     String type = string.substring(0,3);
     String details = string.substring(3);
 
@@ -56,6 +60,7 @@ abstract class Server extends GameHost{
         settings.id = randomGameId();
         settings.host = this;
         adverts.add(settings);
+        response = Success();
         break;
 
       case Command.joinGame:
@@ -71,6 +76,7 @@ abstract class Server extends GameHost{
         Response response = await newGame.requestJoin(_playerId, _token);
         if(response is GameError) return response;
 
+        response =  Success();
         break;
 
       case Command.startGame:
@@ -101,8 +107,8 @@ abstract class Server extends GameHost{
 
         _games.add(_game);
 
-        return Success();
-
+        response =  Success();
+        break;
 
       case Command.move:
         List<String> _d = details.split(Command.delimiter);
@@ -126,15 +132,15 @@ abstract class Server extends GameHost{
         
         game.makeMove(move);
 
-        return Success();
-
+        response = Success();
+      break;
 
       default:
         break;
 
     }
 
-    return Success();
+    return response;
   }
 
   Future<Response> login(String id, String password) async{
@@ -143,15 +149,17 @@ abstract class Server extends GameHost{
 
     String secret = getSecret();
 
-    Player player = new Player()
+    InternetPlayer player = new InternetPlayer()
         ..id = id
     .. secret = secret;
+
+    WebSocket socket = player.getSocket();
     
     if(playerQueue.containsPlayerId(id)) return GameError.alreadyLoggedIn(id);
 
     playerQueue.add(player);
 
-    return LoginToken(id, secret);
+    return LoginToken(id, secret, socket);
   }
 
   String randomGameId(){

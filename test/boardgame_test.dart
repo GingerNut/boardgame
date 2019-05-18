@@ -161,8 +161,13 @@ void main() {
 
     test('Stinged position', ()async{
 
-
-
+      TestInterface ui = TestInterface();
+      await ui.addLocalPlayer(Player());
+      await ui.addLocalPlayer(Player());
+      await ui.addLocalPlayer(Player());
+      ui.startLocalGame();
+      
+      expect(ui.game.players.listAllNames(), ['Player 1', 'Player 2', 'Player 3', 'Player 4']);
 
 
 
