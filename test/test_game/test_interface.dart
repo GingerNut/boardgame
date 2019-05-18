@@ -3,23 +3,20 @@
 
 import 'package:boardgame/src/command/new_game.dart';
 import 'package:boardgame/src/interface/interface.dart';
-import 'package:boardgame/src/interface/player.dart';
+import 'package:boardgame/src/server/stream_channel.dart';
 
 import 'test_game.dart';
-import 'test_server.dart';
 
 
 class TestInterface extends Interface{
 
-  getServer() => TestServer();
+
   getGame(NewGame details) => TestGame(details);
 
-  TestInterface(){
-    server = getServer();
-  }
 
 
-  loginToTestServer(Player player){
+
+  loginToLocalTestServer(String id, String password){
 
   }
 

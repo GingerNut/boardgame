@@ -19,7 +19,9 @@ import 'package:boardgame/src/response/game_error.dart';
 import 'package:boardgame/src/response/login_token.dart';
 import 'package:boardgame/src/response/response.dart';
 import 'package:boardgame/src/response/success.dart';
+import 'package:boardgame/src/server/channel.dart';
 import 'package:boardgame/src/server/internet_player.dart';
+import 'package:boardgame/src/server/web_channel.dart';
 
 
 abstract class Server extends GameHost{
@@ -29,8 +31,7 @@ abstract class Server extends GameHost{
   MoveBuilder moveBuilder;
 
   getMoveBuilder();
-  getPlayer(WebSocket socket) => InternetPlayer(socket);
-
+  
   Server(){
 
     moveBuilder = getMoveBuilder();
@@ -54,7 +55,7 @@ abstract class Server extends GameHost{
       // Upgrade a HttpRequest to a WebSocket connection.
       var socket = await WebSocketTransformer.upgrade(request);
 
-      handleWebSocket(socket);
+      handleChannelJoin(WebChannel(this, socket));
 
     } else if(request.method == 'GET'){
 
@@ -214,9 +215,13 @@ abstract class Server extends GameHost{
 
   }
 
-  void handleWebSocket(WebSocket socket){
-    print('Client connected!');
-    InternetPlayer player = getPlayer(socket);
+  
+
+  handleChannelJoin(Channel channel) async{
+
+    channel.sendMessage(Command.requestLogin);
+
+    InternetPlayer player = InternetPlayer(channel);
     playerQueue.add(player);
   }
 

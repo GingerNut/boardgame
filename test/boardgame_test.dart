@@ -11,7 +11,9 @@ import 'package:boardgame/src/interface/player.dart';
 import 'package:boardgame/src/response/game_error.dart';
 import 'package:boardgame/src/response/login_token.dart';
 import 'package:boardgame/src/response/success.dart';
+import 'package:boardgame/src/server/channel.dart';
 import 'package:boardgame/src/server/server.dart';
+import 'package:boardgame/src/server/stream_channel.dart';
 
 import 'package:boardgame/src/settings.dart';
 import 'package:test/test.dart';
@@ -235,6 +237,34 @@ void main() {
 //      skip: 'must have server working'
   );
 
+
+  group('local test server', (){
+
+    TestServer server = TestServer();
+    TestInterface ui = TestInterface();
+
+    setUp((){
+      setUpPlayerDatabase(server);
+      StreamChannel interfaceChannel = StreamChannel(server);
+      ui.serverChannel = StreamChannel(ui);
+
+      StreamChannel.handshake(interfaceChannel, ui.serverChannel);
+
+      server.handleChannelJoin(interfaceChannel);
+
+    });
+
+    test('login', (){
+
+      ui.serverChannel.sendMessage('hehe io po ');
+      expect(true, true);
+
+    });
+
+
+
+  });
+
   group('logged in players', (){
 
     TestServer server = TestServer();
@@ -304,8 +334,6 @@ void main() {
 
 
 
-      //expect(server.games.length, 1);
-      //expect(server.adverts.length , 0);
 
     });
 

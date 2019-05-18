@@ -12,8 +12,8 @@ import 'package:boardgame/src/position.dart';
 import 'package:boardgame/src/response/game_error.dart';
 import 'package:boardgame/src/response/response.dart';
 import 'package:boardgame/src/response/success.dart';
+import 'package:boardgame/src/server/channel.dart';
 
-import 'package:boardgame/src/server/server.dart';
 
 import 'package:boardgame/src/settings.dart';
 
@@ -24,12 +24,11 @@ abstract class Interface extends GameHost{
   //TODO include bluetooth connectivity
 
   PlayerList players = PlayerList();
-
+  Channel serverChannel;
   Game game;
 
   Game getGame(NewGame details);
-  Server getServer();
-  Server server;
+
 
   GameState gameState = GameState.none;
 
@@ -107,6 +106,10 @@ abstract class Interface extends GameHost{
     changeScreen.close();
   }
 
+  Future<String> handleString(String string)async{
+
+
+  }
 
 
 
