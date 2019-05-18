@@ -11,8 +11,8 @@ import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/game_host.dart';
 import 'package:boardgame/src/game_list.dart';
 import 'package:boardgame/src/move/move.dart';
-import 'package:boardgame/src/move/move_factory.dart';
-import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/move/move_builder.dart';
+import 'package:boardgame/src/interface/player.dart';
 import 'package:boardgame/src/player_list.dart';
 import 'package:boardgame/src/response/game_error.dart';
 import 'package:boardgame/src/response/login_token.dart';
@@ -24,10 +24,13 @@ abstract class Server extends GameHost{
 
   Database db = Database();
 
+  MoveBuilder moveBuilder;
+
+  getMoveBuilder();
+
   Server(){
 
-    moveFactory = getMoveFactory();
-
+    moveBuilder = getMoveBuilder();
   }
 
   Random random = Random();
@@ -35,14 +38,11 @@ abstract class Server extends GameHost{
 
   List<NewGame> adverts = new List();
   GameList _games = GameList();
-  MoveFactory moveFactory;
 
-  getMoveFactory();
-
-    List<String> get gameIds => _games.listAllGames();
+  List<String> get gameIds => _games.listAllGames();
 
 
-  Game getGame(NewGame newGame);
+  Game getNewGame(NewGame newGame);
 
   Future<Response> handle(String string) async{
 
@@ -95,7 +95,7 @@ abstract class Server extends GameHost{
         if(player == null) return GameError.playerNotFound();
         if(player.secret != _token) return GameError.badCommand('player secret not corrent');
 
-        Game _game = getGame(advert);
+        Game _game = getNewGame(advert);
 
         await _game.initialise();
 
@@ -121,7 +121,7 @@ abstract class Server extends GameHost{
 
         if(game.position.player.id != player.id) return GameError.playerNotFound();
 
-        Move move = moveFactory.createMove(_moveType);
+        Move move = moveBuilder.buildMove(_moveType);
         if(move == null) return GameError.badMove(details);
         
         game.makeMove(move);

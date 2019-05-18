@@ -2,7 +2,7 @@
 
 import 'package:boardgame/src/command/command.dart';
 import 'package:boardgame/src/game_host.dart';
-import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/interface/player.dart';
 import 'package:boardgame/src/player_list.dart';
 import 'package:boardgame/src/response/game_error.dart';
 import 'package:boardgame/src/response/response.dart';

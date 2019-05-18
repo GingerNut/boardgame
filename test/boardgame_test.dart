@@ -7,7 +7,7 @@ import 'package:boardgame/src/command/make_move.dart';
 import 'package:boardgame/src/command/new_game.dart';
 import 'package:boardgame/src/command/start_game.dart';
 import 'package:boardgame/src/database/record.dart';
-import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/interface/player.dart';
 import 'package:boardgame/src/response/game_error.dart';
 import 'package:boardgame/src/response/login_token.dart';
 import 'package:boardgame/src/response/success.dart';
@@ -22,6 +22,7 @@ import 'test_game/move_fum.dart';
 import 'test_game/move_number.dart';
 import 'test_game/test_interface.dart';
 import 'test_game/test_move.dart';
+import 'test_game/test_move_builder.dart';
 import 'test_game/test_server.dart';
 
 void main() {
@@ -88,20 +89,20 @@ void main() {
 
       expect(MoveFie().check(ui.game.position).runtimeType, Success().runtimeType);
       ui.game.makeMove(MoveFie());  // out - move should be MoveNumber 123
-      expect(ui.players[0].status(ui.game.position), PlayerStatus.out);
+      expect(ui.players[0].playerStatus, PlayerStatus.out);
       ui.game.makeMove(MoveNumber());  // OK - move should be MoveNumber
-      expect(ui.players[1].status(ui.game.position), PlayerStatus.playing);
+      expect(ui.players[1].playerStatus, PlayerStatus.playing);
       expect(ui.game.position.playersLeft, 3);
-      expect((ui.game.position.player.status(ui.game.position)), PlayerStatus.playing);
+      expect(ui.game.position.player.playerStatus, PlayerStatus.playing);
       ui.game.makeMove(MoveFie());  // OK - move should be MoveNumber
-      expect(ui.game.position.playersLeft, 3);
-      expect((ui.game.position.player.status(ui.game.position)), PlayerStatus.playing);
+      expect(ui.game.position.playersLeft, 3); // wromg
+      expect((ui.game.position.player.playerStatus), PlayerStatus.playing);
       ui.game.makeMove(MoveFo());  // bad - move should be MoveNumber
       expect(ui.game.position.playersLeft, 2);  //12
-      expect((ui.game.position.player.status(ui.game.position)), PlayerStatus.playing);
+      expect((ui.game.position.player.playerStatus), PlayerStatus.playing);
       ui.game.makeMove(MoveFo());  // OK - move should be MoveNumber
       expect(ui.game.position.playersLeft, 2);
-      expect((ui.game.position.player.status(ui.game.position)), PlayerStatus.playing);
+      expect((ui.game.position.player.playerStatus), PlayerStatus.playing);
       ui.game.makeMove(MoveNumber());  // OK - move should be MoveNumber
       expect(ui.game.position.playersLeft, 1);
       expect(ui.game.gameOver, true);
@@ -147,10 +148,12 @@ void main() {
 
     test('Stinged moves', (){
 
-      expect(TestMove.getMove(MoveFie().toString()).runtimeType, MoveFie);
-      expect(TestMove.getMove(MoveFum().toString()).runtimeType, MoveFum);
-      expect(TestMove.getMove(MoveFo().toString()).runtimeType, MoveFo);
-      expect(TestMove.getMove(MoveNumber().toString()).runtimeType, MoveNumber);
+      TestMoveBuilder builder = TestMoveBuilder();
+
+      expect(builder.buildMove(MoveFie().toString()).runtimeType, MoveFie);
+      expect(builder.buildMove(MoveFum().toString()).runtimeType, MoveFum);
+      expect(builder.buildMove(MoveFo().toString()).runtimeType, MoveFo);
+      expect(builder.buildMove(MoveNumber().toString()).runtimeType, MoveNumber);
     });
 
 

@@ -1,6 +1,8 @@
 
 
 
+import 'package:boardgame/src/interface/player.dart';
+
 import 'test_move.dart';
 import 'test_position.dart';
 
@@ -20,11 +22,11 @@ class MoveFie extends TestMove{
   doMove(TestPosition position) {
       bool moveOk = false;
 
-      int test = (position.parent as TestPosition).number;
+      int test = position.number;
 
       if(test % 3 == 0 && test % 5 != 0) moveOk = true;
 
-      if(!moveOk) player.out(position);
+      if(!moveOk) position.player.playerStatus = PlayerStatus.out;
 
   }
 

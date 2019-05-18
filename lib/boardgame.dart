@@ -6,7 +6,7 @@ library boardgame;
 export 'src/game.dart';
 export 'src/board.dart';
 export 'src/position.dart';
-export 'src/player.dart';
+export 'package:boardgame/src/interface/player.dart';
 export 'src/move/move.dart';
 export 'src/settings.dart';
 export 'src/internet/internet_player.dart';

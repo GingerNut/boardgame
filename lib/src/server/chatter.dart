@@ -1,5 +1,5 @@
 
-import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/interface/player.dart';
 import 'package:boardgame/src/player_list.dart';
 import 'package:boardgame/src/server/server.dart';
 

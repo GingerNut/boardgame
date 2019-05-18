@@ -1,7 +1,7 @@
 
 
 
-import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/interface/player.dart';
 import 'package:boardgame/src/position.dart';
 
 
@@ -105,16 +105,16 @@ class PlayerList{
   Player getPlayer(Position position){
 
    Player next;
-    switch(position.parent.playerOrder){
+    switch(position.playerOrder){
       case PlayerOrder.countUp:
-        next = _players[(position.parent.player.number + 1) % _players.length];
-        while(next.status(position) != PlayerStatus.playing){
+        next = _players[(position.player.number + 1) % _players.length];
+        while(next.playerStatus != PlayerStatus.playing){
           next = _players[(next.number + 1) % _players.length];
         }
         break;
       case PlayerOrder.countDown:
-        next = _players[(position.parent.player.number - 1) % _players.length];
-        while(next.status(position) != PlayerStatus.playing){
+        next = _players[(position.player.number - 1) % _players.length];
+        while(next.playerStatus != PlayerStatus.playing){
           next = _players[(next.number - 1) % _players.length];
         }
         break;
@@ -138,7 +138,7 @@ class PlayerList{
   PlayerList remainingPlayers(Position position){
       PlayerList remain = PlayerList();
 
-      _players.forEach((p) => p.status(position) == PlayerStatus.playing ? remain.add(p) :  false);
+      _players.forEach((p) => p.playerStatus == PlayerStatus.playing ? remain.add(p) :  false);
 
       return remain;
   }
@@ -147,7 +147,7 @@ class PlayerList{
 
     int remain = 0;;
 
-    _players.forEach((p) => p.status(position) == PlayerStatus.playing ? remain ++ :  false);
+    _players.forEach((p) => p.playerStatus== PlayerStatus.playing ? remain ++ :  false);
 
     return remain;
 

@@ -7,7 +7,7 @@ import 'package:boardgame/src/board.dart';
 import 'package:boardgame/src/command/new_game.dart';
 import 'package:boardgame/src/computer/computer_player.dart';
 import 'package:boardgame/src/move/move.dart';
-import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/interface/player.dart';
 import 'package:boardgame/src/player_list.dart';
 import 'package:boardgame/src/response/game_error.dart';
 import 'package:boardgame/src/response/response.dart';
@@ -54,8 +54,7 @@ abstract class Game {
   setup() async {}
 
   Future<Response> initialise() async{
-    position = getPosition(null);
-    position.initialise();
+    position = getPosition();
     position.setupFirstPosition();
 
     for (int i = 0; i < numberOfPlayers; i ++) {
@@ -88,31 +87,25 @@ abstract class Game {
 
 
   Future<Response> waitForAllReady()async{
-
-
-    players.forEach((p) => p.setStatus(position, PlayerStatus.playing));
+    players.forEach((p) => p.playerStatus =  PlayerStatus.playing);
     return Success();
-
   }
 
-  getPosition(Position parent);
+  getPosition();
 
   Response makeMove(Move move) {
     Response response = move.check(position);
 
     if(response is GameError) return response;
 
-    Position newPosition = getPosition(position);
-    newPosition.initialise();
-    newPosition.makeMove(move);
-    newPosition.analyse();
-    newPosition.checkWin();
+    position.makeMove(move);
+    position.analyse();
+    position.checkWin();
+    history.add(move);
 
-    position = newPosition;
-
-    if (gameOver) {
-      history.add(move);
-    } else {
+    if (!gameOver) {
+      position.setNextPlayer();
+      position.setUpNewPosition();
       position.player.yourTurn(position);
     }
     return Success();

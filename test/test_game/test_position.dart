@@ -4,7 +4,7 @@ import 'package:boardgame/boardgame.dart';
 import 'package:boardgame/src/player_list.dart';
 
 class TestPosition extends Position{
-  TestPosition(Game game, Position parent) : super(game, parent);
+  TestPosition(Game game) : super(game);
 
   int number;
 
@@ -14,8 +14,8 @@ class TestPosition extends Position{
     player = game.players[0];
   }
 
-  copyVariables(){
-    number = (parent as TestPosition).number + 1;
+  setUpNewPosition(){
+    number ++;
   }
 
 

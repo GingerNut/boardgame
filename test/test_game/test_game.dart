@@ -18,7 +18,7 @@ class TestGame extends Game{
 
   String get string => null;
 
-  getPosition(Position parent) => TestPosition(this, position);
+  getPosition() => TestPosition(this);
 
 
 

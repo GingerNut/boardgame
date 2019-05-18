@@ -5,7 +5,7 @@ import 'package:boardgame/src/command/new_game.dart';
 import 'package:boardgame/src/computer/computer_player.dart';
 import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/game_host.dart';
-import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/interface/player.dart';
 import 'package:boardgame/src/player_list.dart';
 
 import 'package:boardgame/src/position.dart';
@@ -22,6 +22,7 @@ abstract class Interface extends GameHost{
   //TODO include bluetooth connectivity
 
   PlayerList players = PlayerList();
+
   Game game;
 
   Game getGame(NewGame details);

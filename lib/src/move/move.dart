@@ -1,37 +1,33 @@
 
 
 
-import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/interface/player.dart';
 import 'package:boardgame/src/position.dart';
-import 'package:boardgame/src/response/game_error.dart';
 import 'package:boardgame/src/response/response.dart';
 import 'package:boardgame/src/response/success.dart';
 
-abstract class Move <T> {
+abstract class Move <P>{
   bool legal = false;
   String error;
-  Player player;
 
   Move();
 
   Move.fromString(String string);
 
-  Response check(T position){
-
-    this.player = (position as Position).player;
+  Response check(P position){
 
     return doCheck(position);
   }
 
-  Response doCheck(T position);
+  Response doCheck(P position);
 
-  Response go(T position){
+  Response go(P position){
 
       doMove(position);
       return Success();
   }
 
-  doMove(T position);
+  doMove(P position);
 
 
 }

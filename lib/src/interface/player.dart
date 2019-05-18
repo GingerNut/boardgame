@@ -17,16 +17,16 @@ class Player{
   int number;
   int color;
   String reasonOut;
+  double score;
+  PlayerStatus playerStatus = PlayerStatus.waiting;
+
   GameTimer timer;
   String id = '?';
   String secret;
   String displayName;
   String gameId;
-  PlayerStatus playerStatus = PlayerStatus.waiting;
 
   double get timeLeft => timer.timeLeft;
-  double score(Position position) => position.score[number];
-  PlayerStatus status(Position position) => position.playerStatus[number];
 
   Future<Response> getReady()async{
 
@@ -39,7 +39,7 @@ class Player{
     color = Palette.defaultPlayerColours[number];
     timer = GameTimer(this, game.settings.gameTime, moveTime: game.settings.moveTime);
 
-    if(game.id == 'local game') setStatus(game.position, PlayerStatus.ready);
+    if(game.id == 'local game') playerStatus = PlayerStatus.ready;
 
     return Success();
   }
@@ -49,8 +49,6 @@ class Player{
     
   }
 
-  setStatus(Position position, PlayerStatus status) => position.playerStatus[number] = status;
-
   wait(){
 
   }
@@ -58,17 +56,10 @@ class Player{
   outOfTime(){
     Position position = game.position;
 
-    position.playerStatus[number] = PlayerStatus.out;
+    playerStatus = PlayerStatus.out;
     position.checkWin();
   }
 
-  out(Position position){
-
-    position.playerStatus[number] = PlayerStatus.out;
-
-    position.checkWin();
-
-  }
 
 }
 

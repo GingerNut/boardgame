@@ -3,7 +3,7 @@
 
 import 'package:boardgame/src/command/new_game.dart';
 import 'package:boardgame/src/interface/interface.dart';
-import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/interface/player.dart';
 
 import 'test_game.dart';
 import 'test_server.dart';

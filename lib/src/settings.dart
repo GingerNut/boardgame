@@ -1,6 +1,6 @@
 
 
-import 'package:boardgame/src/player.dart';
+import 'package:boardgame/src/interface/player.dart';
 
 
 class Settings{
