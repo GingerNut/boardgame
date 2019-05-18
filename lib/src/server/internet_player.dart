@@ -10,10 +10,9 @@ import 'package:boardgame/src/position.dart';
 
 class InternetPlayer extends Player{
 
-  WebSocket socket;
+  final WebSocket socket;
 
-  WebSocket getSocket() => socket;
-
+  InternetPlayer(this.socket);
 
 
 

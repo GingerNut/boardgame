@@ -29,6 +29,7 @@ abstract class Server extends GameHost{
   MoveBuilder moveBuilder;
 
   getMoveBuilder();
+  getPlayer(WebSocket socket) => InternetPlayer(socket);
 
   Server(){
 
@@ -46,7 +47,34 @@ abstract class Server extends GameHost{
 
   Game getNewGame(NewGame newGame);
 
-  Future<Response> handle(String string) async{
+
+  Future<Response> handleRequest(HttpRequest request) async {
+
+    if (request.uri.path == '/ws') {
+      // Upgrade a HttpRequest to a WebSocket connection.
+      var socket = await WebSocketTransformer.upgrade(request);
+
+      handleWebSocket(socket);
+
+    } else if(request.method == 'GET'){
+
+    } else if(request.method == 'POST'){
+      //String string = request.payload;
+     // handleString(string);
+
+    } else {
+    request.response
+    ..statusCode = HttpStatus.methodNotAllowed
+    ..write('Unsupported request: ${request.method}.')
+    .. close();
+    };
+
+
+  }
+
+
+
+  Future<Response> handleString(String string) async{
 
     Response response;
 
@@ -149,17 +177,15 @@ abstract class Server extends GameHost{
 
     String secret = getSecret();
 
-    InternetPlayer player = new InternetPlayer()
+    InternetPlayer player = new InternetPlayer(null)
         ..id = id
     .. secret = secret;
-
-    WebSocket socket = player.getSocket();
     
     if(playerQueue.containsPlayerId(id)) return GameError.alreadyLoggedIn(id);
 
     playerQueue.add(player);
 
-    return LoginToken(id, secret, socket);
+    return LoginToken(id, secret);
   }
 
   String randomGameId(){
@@ -186,6 +212,12 @@ abstract class Server extends GameHost{
 
     return new String.fromCharCodes(codeUnits);
 
+  }
+
+  void handleWebSocket(WebSocket socket){
+    print('Client connected!');
+    InternetPlayer player = getPlayer(socket);
+    playerQueue.add(player);
   }
 
 }

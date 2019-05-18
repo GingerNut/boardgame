@@ -10,9 +10,8 @@ class LoginToken extends Response{
 
     final String playerSecret;
     final String playerId;
-    WebSocket socket;
 
-    LoginToken(this.playerId, this.playerSecret, this.socket);
+    LoginToken(this.playerId, this.playerSecret);
 
 
 }

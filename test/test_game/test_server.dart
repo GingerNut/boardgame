@@ -1,6 +1,9 @@
 
 
 
+
+import 'dart:io';
+
 import 'package:boardgame/src/command/new_game.dart';
 import 'package:boardgame/src/game.dart';
 import 'package:boardgame/src/move/move_builder.dart';

@@ -1,8 +1,7 @@
 
 import 'dart:io';
 
-
-
+import 'test_server.dart';
 
 
 // dart package:boardgame/bin/local_http_server.dart
@@ -17,11 +16,12 @@ Future main() async {
   );
   print('Listening on localhost:${server.port}');
 
-//  TestServer searchServer = TestServer();
+ TestServer searchServer = TestServer();
 
   await for (HttpRequest request in server) {
 
-//    searchServer.handle(request);
+    await searchServer.handleRequest(request);
+
   }
 }
 

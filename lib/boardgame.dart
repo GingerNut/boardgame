@@ -13,5 +13,6 @@ export 'package:boardgame/src/server/internet_player.dart';
 export 'src/computer/computer_player.dart';
 export 'src/palette.dart';
 export 'src/interface/interface.dart';
+export 'src/server/server.dart';
 
 // TODO: Export any libraries intended for clients of this package.

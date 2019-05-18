@@ -279,7 +279,7 @@ void main() {
       instructions += Command.newGame;
       instructions += newGame.toString();
 
-      await server.handle(instructions);
+      await server.handleString(instructions);
 
       expect(server.adverts.length,1);
       NewGame advert = server.adverts[0];
@@ -324,32 +324,32 @@ void main() {
       instructions += Command.newGame;
       instructions += newGame.toString();
 
-      await server.handle(instructions);
+      await server.handleString(instructions);
 
       expect(server.adverts.length,1);
       NewGame advert = server.adverts[0];
 
       String gameId = advert.id;
 
-      await  server.handle(JoinGame(gameId, 'henry', henry_token).toString());
+      await  server.handleString(JoinGame(gameId, 'henry', henry_token).toString());
       expect(advert.players.length, 1);
 
-      await  server.handle(JoinGame(gameId, 'james', james_token).toString());
+      await  server.handleString(JoinGame(gameId, 'james', james_token).toString());
       expect(advert.players.length, 2);
 
-      await  server.handle(JoinGame(gameId, 'james', james_token).toString());
+      await  server.handleString(JoinGame(gameId, 'james', james_token).toString());
       expect(advert.players.length, 2);
 
-      await  server.handle(JoinGame(gameId, 'trace', trace_token).toString());
+      await  server.handleString(JoinGame(gameId, 'trace', trace_token).toString());
       expect(advert.players.length, 3);
 
       expect(advert.full, false);
 
-      await  server.handle(JoinGame(gameId, 'sarah', sarah_token).toString());
+      await  server.handleString(JoinGame(gameId, 'sarah', sarah_token).toString());
       expect(advert.players.length, 4);
       expect(advert.full, true);
 
-      await server.handle(StartGame(gameId, 'sarah', sarah_token).toString());
+      await server.handleString(StartGame(gameId, 'sarah', sarah_token).toString());
 
       expect(await server.gameIds.length, 1);
       expect(await server.adverts.length , 0);
@@ -358,7 +358,7 @@ void main() {
 
       MakeMove move = MakeMove(gameId, 'henry', henry_token, MoveNumber().toString(), );
       
-      expect(await server.handle(move.toString()), Success());
+      expect(await server.handleString(move.toString()), Success());
 
 
 
